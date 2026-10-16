@@ -1,0 +1,294 @@
+// =====================================================================
+//  AquaMarket — schéma de données (MVP)
+//  Deux faces : CLIENT (aquariophile) et SHOP (magasin abonné)
+// =====================================================================
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ----------------------------- Enums ---------------------------------
+
+enum Role {
+  CLIENT
+  SHOP
+}
+
+enum WaterType {
+  FRESH    // eau douce
+  MARINE   // eau de mer
+  BRACKISH // eau saumâtre
+}
+
+enum SpeciesKind {
+  FISH
+  INVERTEBRATE
+  PLANT
+}
+
+enum Temperament {
+  PEACEFUL
+  SEMI_AGGRESSIVE
+  AGGRESSIVE
+}
+
+enum FlowPreference {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum LightNeed {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+/// Catégories de produits du catalogue magasin. C'est la clé de jointure
+/// "dure" entre un besoin dérivé de la configuration client et un produit.
+enum ProductCategory {
+  TANK            // bac / aquarium nu ou kit
+  FILTER
+  HEATER
+  LIGHT
+  SUBSTRATE
+  CO2
+  DECOR
+  FISH
+  INVERTEBRATE
+  PLANT
+  FOOD
+  WATER_TREATMENT // conditionneur, sel marin, engrais
+  ACCESSORY       // thermomètre, épuisette, pompe à air...
+}
+
+enum SubscriptionTier {
+  NONE
+  STANDARD
+  PREMIUM
+}
+
+enum SubscriptionStatus {
+  INACTIVE
+  ACTIVE
+  PAST_DUE
+  CANCELED
+}
+
+enum ItemKind {
+  FISH
+  INVERTEBRATE
+  PLANT
+  DECOR
+  EQUIPMENT
+}
+
+enum PricePreference {
+  ECO
+  STANDARD
+  PREMIUM
+}
+
+enum QuoteLineStatus {
+  MATCHED
+  UNMATCHED
+}
+
+// ----------------------------- Auth ----------------------------------
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         Role
+  displayName  String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  shop      Shop?
+  aquariums Aquarium[]
+}
+
+// ----------------------------- Magasin -------------------------------
+
+model Shop {
+  id          String  @id @default(cuid())
+  userId      String  @unique
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  city        String?
+  description String?
+  website     String?
+
+  subscriptionTier     SubscriptionTier   @default(NONE)
+  subscriptionStatus   SubscriptionStatus @default(INACTIVE)
+  stripeCustomerId     String?            @unique
+  stripeSubscriptionId String?            @unique
+  currentPeriodEnd     DateTime?
+
+  products Product[]
+  leads    QuoteLine[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+/// Produit du catalogue magasin. Importé via CSV/JSON.
+/// Les champs "tags", "compatibleSpecies", "waterTypes", "min/maxVolumeL"
+/// et "attributes" alimentent le moteur de matching.
+model Product {
+  id          String          @id @default(cuid())
+  shopId      String
+  shop        Shop            @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  externalRef String          // référence interne du magasin (clé d'upsert)
+  name        String
+  brand       String?
+  category    ProductCategory
+  price       Decimal         @db.Decimal(10, 2)
+  currency    String          @default("EUR")
+  stockQty    Int             @default(0)
+  imageUrl    String?
+
+  /// Tags libres normalisés en kebab-case : "strong-flow", "plant-substrate", "driftwood"...
+  tags String[] @default([])
+  /// Slugs d'espèces (table Species) avec lesquelles ce produit est compatible (matériel)
+  compatibleSpecies String[] @default([])
+  /// Pour le vivant et les plantes : l'espèce que CE produit est (slug Species)
+  speciesSlug String?
+  /// Types d'eau supportés (vide = tous)
+  waterTypes WaterType[] @default([])
+  /// Plage de volume de bac conseillée (matériel)
+  minVolumeL Int?
+  maxVolumeL Int?
+  /// Attributs techniques numériques : { volumeL, flowLph, powerW, lumens, weightKg, lengthCm... }
+  attributes Json    @default("{}")
+  active     Boolean @default(true)
+
+  quoteLines QuoteLine[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([shopId, externalRef])
+  @@index([category, active])
+  @@index([speciesSlug])
+}
+
+// --------------------- Référentiel espèces (seed) --------------------
+
+/// Référentiel commun poissons / invertébrés / plantes, utilisé pour la
+/// configuration client, la vérification de compatibilité et le matching.
+model Species {
+  id             String      @id @default(cuid())
+  slug           String      @unique
+  commonName     String
+  scientificName String?
+  kind           SpeciesKind
+  waterType      WaterType
+
+  minVolumeL  Int
+  tempMinC    Float
+  tempMaxC    Float
+  phMin       Float
+  phMax       Float
+  adultSizeCm Float // poissons : taille adulte ; plantes : hauteur
+
+  temperament         Temperament    @default(PEACEFUL)
+  minGroupSize        Int            @default(1)
+  eatsPlants          Boolean        @default(false)
+  finNipper           Boolean        @default(false)
+  longFins            Boolean        @default(false)
+  predatorThresholdCm Float? // mange les poissons plus petits que X cm
+  flowPreference      FlowPreference @default(MEDIUM)
+
+  // Plantes
+  lightNeed LightNeed?
+  needsCo2  Boolean    @default(false)
+  rooted    Boolean    @default(true)
+
+  /// Slugs explicitement incompatibles
+  incompatibleWith String[] @default([])
+  tags             String[] @default([])
+  /// Couleur indicative pour la visualisation 3D (hex)
+  color            String   @default("#8fb3c9")
+
+  items AquariumItem[]
+}
+
+// --------------------------- Configuration ---------------------------
+
+model Aquarium {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name   String
+
+  volumeL   Int
+  waterType WaterType
+  lengthCm  Int?
+  widthCm   Int?
+  heightCm  Int?
+
+  pricePreference PricePreference @default(STANDARD)
+
+  items  AquariumItem[]
+  quotes Quote[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+/// Élément de configuration : poisson, invertébré, plante (refSlug = Species.slug),
+/// décor (refSlug = "driftwood", "rock", "cave", ...) ou matériel explicite
+/// (refSlug = "air-pump", "thermometer", ...).
+model AquariumItem {
+  id         String   @id @default(cuid())
+  aquariumId String
+  aquarium   Aquarium @relation(fields: [aquariumId], references: [id], onDelete: Cascade)
+  kind       ItemKind
+  refSlug    String
+  quantity   Int      @default(1)
+  speciesId  String?
+  species    Species? @relation(fields: [speciesId], references: [id])
+
+  @@index([aquariumId])
+}
+
+// ------------------------- Devis / matching --------------------------
+
+/// Résultat persisté d'un matching : estimation de budget + lignes produit.
+/// Côté magasin, les lignes constituent des "leads".
+model Quote {
+  id         String   @id @default(cuid())
+  aquariumId String
+  aquarium   Aquarium @relation(fields: [aquariumId], references: [id], onDelete: Cascade)
+  totalCents Int
+  currency   String   @default("EUR")
+  coverage   Float    // part des besoins couverts (0..1)
+  lines      QuoteLine[]
+  createdAt  DateTime @default(now())
+}
+
+model QuoteLine {
+  id             String          @id @default(cuid())
+  quoteId        String
+  quote          Quote           @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  requirementKey String
+  label          String
+  category       ProductCategory
+  quantity       Int
+  status         QuoteLineStatus
+  productId      String?
+  product        Product?        @relation(fields: [productId], references: [id], onDelete: SetNull)
+  shopId         String?
+  shop           Shop?           @relation(fields: [shopId], references: [id], onDelete: SetNull)
+  unitPriceCents Int?
+  score          Float?
+
+  @@index([shopId])
+}

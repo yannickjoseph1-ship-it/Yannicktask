@@ -1,0 +1,19 @@
+ref,name,category,price,currency,stock,brand,tags,compatible_species,species_slug,water_types,min_volume_l,max_volume_l,attr_volumeL,attr_flowLph,attr_powerW,attr_lumens,attr_lengthCm,attr_weightKg
+TANK-100,Aquarium 100 L 80 cm,TANK,169.00,EUR,4,AquaGlass,glass|kit,,,FRESH|BRACKISH,,,100,,,,80,
+FIL-600,Filtre externe 600 L/h,FILTER,89.90,EUR,10,FlowMaster,external|quiet,,,,60,150,,600,,,,
+FIL-SP,Filtre exhausteur,FILTER,14.90,EUR,25,,sponge|gentle-flow|shrimp-safe,red-cherry-shrimp|betta-splendens,,,10,80,,250,,,,
+HEAT-100,Chauffage 100 W,HEATER,22.90,EUR,12,ThermoFix,,,,,50,120,,,100,,,
+LED-80,Rampe LED 80 cm plantes,LIGHT,69.90,EUR,6,Lumina,led|plant-growth,,,,60,150,,,,2200,80,
+SOIL-9,Sol nutritif 9 kg,SUBSTRATE,34.90,EUR,15,,plant-substrate,,,,,,,,,,,9
+SAND-10,Sable fin 10 kg,SUBSTRATE,12.90,EUR,30,,sand|fine-sand,corydoras-panda|kuhli-loach,,,,,,,,,,10
+CO2-KIT,Kit CO2 complet,CO2,189.00,EUR,3,,co2-kit,,,,50,500,,,,,,
+WOOD-M,Racine Mopani M,DECOR,19.90,EUR,8,,driftwood|wood,,,,,,,,,,,
+ROCK-DR,Roche Dragon (kg),DECOR,6.90,EUR,40,,rock|hardscape,,,,,,,,,,,
+FISH-NEON,Néon bleu,FISH,1.90,EUR,100,,schooling,,neon-tetra,FRESH,,,,,,,,
+FISH-CORY,Corydoras panda,FISH,5.90,EUR,30,,,,corydoras-panda,FRESH,,,,,,,,
+INV-RCS,Crevette Red Cherry,INVERTEBRATE,2.50,EUR,80,,,,red-cherry-shrimp,FRESH,,,,,,,,
+PLANT-ANU,Anubias nana (pot),PLANT,6.90,EUR,20,,,,anubias-nana,FRESH,,,,,,,,
+PLANT-ROT,Rotala rotundifolia (pot),PLANT,7.90,EUR,20,,,,rotala-rotundifolia,FRESH,,,,,,,,
+COND-250,Conditionneur 250 ml,WATER_TREATMENT,8.90,EUR,40,,conditioner,,,,,,,,,,,
+FOOD-FL,Flocons tropicaux 100 g,FOOD,5.90,EUR,50,,flakes,neon-tetra|guppy,,,,,,,,,,
+FOOD-WF,Pastilles de fond,FOOD,6.90,EUR,50,,sinking|vegetable,corydoras-panda|ancistrus,,,,,,,,,,

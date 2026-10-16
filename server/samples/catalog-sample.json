@@ -1,0 +1,9 @@
+{
+  "products": [
+    { "ref": "TANK-60", "name": "Aquarium 60 L", "category": "TANK", "price": 99, "stock": 3, "tags": ["glass", "kit"], "attributes": { "volumeL": 60, "lengthCm": 60 } },
+    { "ref": "FIL-400", "name": "Filtre interne 400 L/h", "category": "FILTER", "price": 29.9, "stock": 10, "tags": ["internal"], "min_volume_l": 40, "max_volume_l": 100, "attributes": { "flowLph": 400 } },
+    { "ref": "HEAT-50", "name": "Chauffage 50 W", "category": "HEATER", "price": 18.9, "stock": 10, "min_volume_l": 25, "max_volume_l": 60, "attributes": { "powerW": 50 } },
+    { "ref": "FISH-GUP", "name": "Guppy mâle", "category": "FISH", "price": 3.5, "stock": 40, "species_slug": "guppy", "water_types": ["FRESH"] },
+    { "ref": "PLANT-JF", "name": "Fougère de Java", "category": "PLANT", "price": 6.9, "stock": 15, "species_slug": "java-fern" }
+  ]
+}
