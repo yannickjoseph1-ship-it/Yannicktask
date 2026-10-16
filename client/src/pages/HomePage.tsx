@@ -22,22 +22,9 @@ export function HomePage() {
             </div>
             <p className="hero-note">Gratuit pour les aquariophiles · Vous êtes un magasin ? <Link to="/register">Référencez votre catalogue</Link></p>
           </div>
-          <aside className="hero-card" aria-label="Exemple de devis">
-            <div className="hero-card-head">
-              <span>Bac communautaire · 120 L · eau douce</span>
-              <span className="pill ok">Compatible</span>
-            </div>
-            <ul className="hero-card-lines">
-              <li><span>Aquarium 100 L (80 cm)</span><span>169,00 €</span></li>
-              <li><span>Filtre externe 600 L/h</span><span>89,00 €</span></li>
-              <li><span>Chauffage 100 W</span><span>22,90 €</span></li>
-              <li><span>Rampe LED 80 cm</span><span>69,90 €</span></li>
-              <li><span>10 néons bleus · 6 corydoras panda</span><span>54,40 €</span></li>
-              <li><span>Plantes, substrat, décor</span><span>93,80 €</span></li>
-            </ul>
-            <div className="hero-card-total"><span>Budget estimé</span><strong>514,80 €</strong></div>
-            <p className="hero-card-note">Produits réels du catalogue d'un magasin partenaire, avec alternatives.</p>
-          </aside>
+          <div className="hero-figure">
+            <img src="/brand/hero-aquarium.svg" alt="Illustration d'un aquarium planté avec ses poissons" width={800} height={600} />
+          </div>
         </div>
       </section>
 
