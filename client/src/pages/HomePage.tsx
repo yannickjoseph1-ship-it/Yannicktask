@@ -22,9 +22,6 @@ export function HomePage() {
             </div>
             <p className="hero-note">Gratuit pour les aquariophiles · Vous êtes un magasin ? <Link to="/register">Référencez votre catalogue</Link></p>
           </div>
-          <div className="hero-figure">
-            <img src="/brand/hero-aquarium.svg" alt="Illustration d'un aquarium planté avec ses poissons" width={800} height={600} />
-          </div>
         </div>
       </section>
 
