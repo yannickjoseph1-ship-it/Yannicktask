@@ -17,6 +17,10 @@ Application web permettant à des aquariophiles amateurs de **concevoir et visua
 
 ## Démarrage rapide
 
+Installation en une commande (macOS, Linux, WSL) : `./scripts/setup.sh` — sous Windows : `powershell -ExecutionPolicy Bypass -File scripts\setup.ps1`. Puis `npm run dev`.
+
+Étapes manuelles équivalentes :
+
 ```bash
 # 1. PostgreSQL (Docker) — ou utilisez une instance locale
 docker compose up -d db
