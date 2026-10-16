@@ -7,10 +7,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
     <div className="app">
       <header className="topbar">
         <Link to="/" className="brand">
-          <span className="brand-logo">🐟</span> AquaMarket
+          <img src="/brand/logo.webp" alt="" width={36} height={36} className="brand-logo" /> Aqu.app
         </Link>
         <nav>
-          {user?.role === 'CLIENT' && <NavLink to="/">Configurateur</NavLink>}
+          {user?.role === 'CLIENT' && <NavLink to="/app">Configurateur</NavLink>}
           {user?.role === 'SHOP' && <NavLink to="/shop">Espace magasin</NavLink>}
           {!user && <NavLink to="/login">Connexion</NavLink>}
           {!user && <NavLink to="/register" className="btn btn-sm">Créer un compte</NavLink>}

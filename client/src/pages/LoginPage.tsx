@@ -16,7 +16,7 @@ export function LoginPage() {
     setError(null);
     try {
       const user = await login(email, password);
-      navigate(user.role === 'SHOP' ? '/shop' : '/');
+      navigate(user.role === 'SHOP' ? '/shop' : '/app');
     } catch (err) {
       setError((err as Error).message);
     } finally {

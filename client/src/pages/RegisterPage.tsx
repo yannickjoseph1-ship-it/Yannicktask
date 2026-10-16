@@ -20,7 +20,7 @@ export function RegisterPage() {
       const payload: Record<string, unknown> = { role, email: form.email, password: form.password, displayName: form.displayName };
       if (role === 'SHOP') payload.shop = { name: form.shopName, city: form.city || undefined };
       const user = await register(payload);
-      navigate(user.role === 'SHOP' ? '/shop' : '/');
+      navigate(user.role === 'SHOP' ? '/shop' : '/app');
     } catch (err) {
       setError((err as Error).message);
     } finally {

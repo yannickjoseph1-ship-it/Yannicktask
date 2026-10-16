@@ -15,6 +15,8 @@ export interface AquariumSceneProps {
   speciesBySlug: Record<string, Species>;
   /** Matériel présent dans la configuration (dérivé du matching) */
   equipment: { heater: boolean; filter: boolean; light: boolean; co2: boolean };
+  /** Distance caméra relative (1 = défaut ; < 1 rapproche) */
+  zoom?: number;
 }
 
 const SCALE = 0.1; // 10 cm = 1 unité
@@ -23,7 +25,7 @@ const MAX_PLANTS = 24;
 
 const WATER_COLORS: Record<WaterType, string> = { FRESH: '#3f9fc9', MARINE: '#1e7ed6', BRACKISH: '#5a9d86' };
 
-export function AquariumScene({ dimensions, waterType, items, speciesBySlug, equipment }: AquariumSceneProps) {
+export function AquariumScene({ dimensions, waterType, items, speciesBySlug, equipment, zoom = 1 }: AquariumSceneProps) {
   const w = dimensions.lengthCm * SCALE;
   const h = dimensions.heightCm * SCALE;
   const d = dimensions.widthCm * SCALE;
@@ -80,7 +82,7 @@ export function AquariumScene({ dimensions, waterType, items, speciesBySlug, equ
   }, [items, speciesBySlug, w, d, waterH, dimensions.lengthCm]);
 
   const hasBackground = items.some((i) => i.kind === 'DECOR' && i.refSlug === 'background');
-  const camDist = Math.max(w, d, h) * 1.6 + 2;
+  const camDist = (Math.max(w, d, h) * 1.6 + 2) * zoom;
 
   return (
     <Canvas shadows camera={{ position: [camDist * 0.7, h * 0.8 + 1, camDist * 0.75], fov: 40 }} dpr={[1, 1.75]}>

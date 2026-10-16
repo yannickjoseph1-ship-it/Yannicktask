@@ -1,4 +1,4 @@
-# AquaMarket — marketplace biface aquariophilie (MVP)
+# Aqu.app — marketplace biface aquariophilie (MVP)
 
 Application web permettant à des aquariophiles amateurs de **concevoir et visualiser leur aquarium en 3D**, puis d'être mis en relation avec les **magasins référencés** proposant le matériel adapté, avec une **estimation de budget**.
 
@@ -12,7 +12,7 @@ Application web permettant à des aquariophiles amateurs de **concevoir et visua
 | Backend | Node.js 22, Express 5, TypeScript, Prisma 7 (+ `@prisma/adapter-pg`), PostgreSQL 16 |
 | Auth | JWT (bcrypt), deux rôles `CLIENT` / `SHOP` |
 | Paiement | Stripe Checkout + webhooks (abonnements récurrents), mode simulé hors production |
-| Frontend | React 19, Vite, React Router, React Three Fiber + drei (Three.js) |
+| Frontend | React 19, Vite, React Router, React Three Fiber + drei (Three.js) — charte : bleu marine `#000080`, police San Francisco (pile système Apple) |
 | Tests | Vitest (moteur de matching, compatibilité, importeur) |
 
 ## Démarrage rapide
@@ -31,7 +31,7 @@ cp server/.env.example server/.env   # adapter DATABASE_URL / JWT_SECRET si beso
 npm run db:migrate        # prisma migrate dev
 npm run db:seed           # référentiel espèces + comptes + catalogues démo
 
-# 5. Lancer API (http://localhost:4000) et front (http://localhost:5173)
+# 5. Lancer API (http://localhost:4000) et front (http://localhost:5173 : accueil, /app configurateur, /shop magasin)
 npm run dev
 ```
 
@@ -63,7 +63,8 @@ server/
   src/routes/                   # auth, species, aquariums (preview/quote), shop, webhooks
   src/services/                 # catalog (chargement), catalog-import (CSV/JSON), stripe
 client/
-  src/pages/ConfiguratorPage    # configurateur client (formulaire, 3D, résultats)
+  src/pages/HomePage            # page d'accueil publique (hero 3D, parcours, offre magasins)
+  src/pages/ConfiguratorPage    # configurateur client (/app : formulaire, 3D, résultats)
   src/pages/ShopDashboardPage   # back-office magasin (abonnement, import, produits, leads)
   src/three/                    # scène R3F : bac, eau, substrat, poissons animés, plantes, décor, matériel
 ```
