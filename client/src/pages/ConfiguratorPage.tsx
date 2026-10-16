@@ -34,6 +34,7 @@ export function ConfiguratorPage() {
   const [name, setName] = useState('Mon aquarium');
   const [notice, setNotice] = useState<string | null>(null);
   const timer = useRef<number | null>(null);
+  const [mobileTab, setMobileTab] = useState<'config' | 'scene' | 'results'>('config');
 
   const loadSaved = useCallback(async () => {
     const { aquariums } = await api<{ aquariums: AquariumRow[] }>('/aquariums');
@@ -129,7 +130,12 @@ export function ConfiguratorPage() {
   }, [notice]);
 
   return (
-    <div className="configurator">
+    <div className={`configurator tab-${mobileTab}`}>
+      <div className="mobile-tabs segmented" role="tablist">
+        <button type="button" className={mobileTab === 'config' ? 'active' : ''} onClick={() => setMobileTab('config')}>Configurer</button>
+        <button type="button" className={mobileTab === 'scene' ? 'active' : ''} onClick={() => setMobileTab('scene')}>Aperçu</button>
+        <button type="button" className={mobileTab === 'results' ? 'active' : ''} onClick={() => setMobileTab('results')}>{analysis ? `Devis · ${(analysis.match.totalCents / 100).toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}` : 'Devis'}</button>
+      </div>
       <aside className="panel left">
         <div className="row space">
           <h2>Configurer</h2>
