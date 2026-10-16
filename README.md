@@ -134,3 +134,20 @@ Sans clé Stripe (dev), le back-office propose une activation simulée.
 ## Hors périmètre MVP
 
 Génération d'images IA, machine learning, application mobile, notation/avis.
+
+## Déploiement bêta
+
+Stack complète conteneurisée (PostgreSQL, API, front nginx) :
+
+```bash
+cp .env.beta.example .env.beta        # renseigner POSTGRES_PASSWORD, JWT_SECRET, CLIENT_URL, clés Stripe
+docker compose --env-file .env.beta -f docker-compose.beta.yml up -d --build
+docker compose -f docker-compose.beta.yml exec api npx tsx prisma/seed.ts   # optionnel : espèces + comptes démo
+```
+
+Le front est servi sur `http://localhost:8080` (variable `WEB_PORT`) et proxifie `/api` vers l'API. Les migrations sont appliquées au démarrage du conteneur `api`.
+Le badge « Bêta » et le bouton de retours sont pilotés par `VITE_BETA` (défaut `true`) et `VITE_FEEDBACK_URL` au moment du build du front.
+
+En production, Stripe doit être configuré : le mode simulé est désactivé et les magasins ne peuvent pas s'abonner sans clés.
+
+La CI GitHub (`.github/workflows/ci.yml`) exécute migrations, seed, tests, typecheck et build à chaque push.

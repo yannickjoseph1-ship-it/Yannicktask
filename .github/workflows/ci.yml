@@ -1,0 +1,38 @@
+name: CI
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+jobs:
+  test-build:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: aquamarket
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 3s --health-retries 20
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/aquamarket?schema=public
+      JWT_SECRET: ci-secret
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run db:generate -w server
+      - run: npm run db:deploy -w server
+      - run: npm run db:seed -w server
+      - run: npm test
+      - run: npm run typecheck -w server
+      - run: npm run build -w client
+      - name: Démarrage et contrôle de l'API
+        run: |
+          (cd server && npx tsx src/index.ts &) ; sleep 5
+          curl -sf http://localhost:4000/api/health

@@ -5,3 +5,4 @@ dist/
 server/src/generated/
 client/dist/
 .DS_Store
+.env.beta

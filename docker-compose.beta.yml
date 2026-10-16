@@ -1,0 +1,58 @@
+# Aqu.app — stack bêta complète : base, API, front
+# Usage : cp .env.beta.example .env.beta && docker compose --env-file .env.beta -f docker-compose.beta.yml up -d --build
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-aquapp}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?définir POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-aquapp}
+    volumes:
+      - pgdata-beta:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-aquapp} -d ${POSTGRES_DB:-aquapp}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-aquapp}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-aquapp}?schema=public
+      JWT_SECRET: ${JWT_SECRET:?définir JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+      CLIENT_URL: ${CLIENT_URL:-http://localhost:8080}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+      STRIPE_PRICE_STANDARD: ${STRIPE_PRICE_STANDARD:-}
+      STRIPE_PRICE_PREMIUM: ${STRIPE_PRICE_PREMIUM:-}
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:4000/api/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+      args:
+        VITE_BETA: "true"
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  pgdata-beta:
