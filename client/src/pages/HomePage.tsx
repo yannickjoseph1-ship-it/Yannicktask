@@ -1,25 +1,5 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../lib/auth';
-import type { ConfigItem, Species } from '../lib/types';
-import { AquariumScene } from '../three/AquariumScene';
-
-/** Espèces de démonstration pour la scène d'accueil (pas d'appel API). */
-const DEMO_SPECIES: Record<string, Species> = {
-  'neon-tetra': { id: '1', slug: 'neon-tetra', commonName: 'Néon bleu', kind: 'FISH', waterType: 'FRESH', minVolumeL: 60, tempMinC: 20, tempMaxC: 26, adultSizeCm: 3.5, minGroupSize: 8, needsCo2: false, rooted: true, tags: ['schooling'], color: '#2f7cff' },
-  'cardinal-tetra': { id: '2', slug: 'cardinal-tetra', commonName: 'Néon cardinal', kind: 'FISH', waterType: 'FRESH', minVolumeL: 80, tempMinC: 24, tempMaxC: 29, adultSizeCm: 4, minGroupSize: 8, needsCo2: false, rooted: true, tags: ['schooling'], color: '#e33b3b' },
-  'corydoras-panda': { id: '3', slug: 'corydoras-panda', commonName: 'Corydoras panda', kind: 'FISH', waterType: 'FRESH', minVolumeL: 80, tempMinC: 20, tempMaxC: 25, adultSizeCm: 5, minGroupSize: 6, needsCo2: false, rooted: true, tags: ['bottom-dweller'], color: '#edf2f4' },
-  'vallisneria': { id: '4', slug: 'vallisneria', commonName: 'Vallisnérie', kind: 'PLANT', waterType: 'FRESH', minVolumeL: 60, tempMinC: 15, tempMaxC: 28, adultSizeCm: 50, minGroupSize: 1, needsCo2: false, rooted: true, tags: [], color: '#74c69d', lightNeed: 'MEDIUM' },
-  'anubias-nana': { id: '5', slug: 'anubias-nana', commonName: 'Anubias nana', kind: 'PLANT', waterType: 'FRESH', minVolumeL: 10, tempMinC: 20, tempMaxC: 28, adultSizeCm: 12, minGroupSize: 1, needsCo2: false, rooted: false, tags: [], color: '#2d6a4f', lightNeed: 'LOW' },
-};
-const DEMO_ITEMS: ConfigItem[] = [
-  { kind: 'FISH', refSlug: 'neon-tetra', quantity: 10 },
-  { kind: 'FISH', refSlug: 'cardinal-tetra', quantity: 6 },
-  { kind: 'FISH', refSlug: 'corydoras-panda', quantity: 5 },
-  { kind: 'PLANT', refSlug: 'vallisneria', quantity: 5 },
-  { kind: 'PLANT', refSlug: 'anubias-nana', quantity: 3 },
-  { kind: 'DECOR', refSlug: 'driftwood', quantity: 1 },
-  { kind: 'DECOR', refSlug: 'rock', quantity: 3 },
-];
 
 export function HomePage() {
   const { user } = useAuth();
@@ -42,10 +22,22 @@ export function HomePage() {
             </div>
             <p className="hero-note">Gratuit pour les aquariophiles · Vous êtes un magasin ? <Link to="/register">Référencez votre catalogue</Link></p>
           </div>
-          <div className="hero-scene" aria-label="Aperçu d'un aquarium configuré en 3D">
-            <AquariumScene dimensions={{ lengthCm: 100, widthCm: 40, heightCm: 50 }} waterType="FRESH" items={DEMO_ITEMS} speciesBySlug={DEMO_SPECIES} equipment={{ heater: true, filter: true, light: true, co2: false }} zoom={0.72} />
-            <div className="hero-scene-caption">Bac communautaire 180 L · 21 poissons · 8 plantes · budget estimé 612 €</div>
-          </div>
+          <aside className="hero-card" aria-label="Exemple de devis">
+            <div className="hero-card-head">
+              <span>Bac communautaire · 120 L · eau douce</span>
+              <span className="pill ok">Compatible</span>
+            </div>
+            <ul className="hero-card-lines">
+              <li><span>Aquarium 100 L (80 cm)</span><span>169,00 €</span></li>
+              <li><span>Filtre externe 600 L/h</span><span>89,00 €</span></li>
+              <li><span>Chauffage 100 W</span><span>22,90 €</span></li>
+              <li><span>Rampe LED 80 cm</span><span>69,90 €</span></li>
+              <li><span>10 néons bleus · 6 corydoras panda</span><span>54,40 €</span></li>
+              <li><span>Plantes, substrat, décor</span><span>93,80 €</span></li>
+            </ul>
+            <div className="hero-card-total"><span>Budget estimé</span><strong>514,80 €</strong></div>
+            <p className="hero-card-note">Produits réels du catalogue d'un magasin partenaire, avec alternatives.</p>
+          </aside>
         </div>
       </section>
 

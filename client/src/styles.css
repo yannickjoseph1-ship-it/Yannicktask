@@ -154,9 +154,14 @@ label.row { flex-direction: row; align-items: center; }
 .hero .btn-outline:hover { background: rgba(255,255,255,0.12); }
 .hero-note { margin: 1.2rem 0 0; color: #b9bdea; font-size: 0.9rem; }
 .hero-note a { color: #fff; }
-.hero-scene { position: relative; aspect-ratio: 4 / 3; max-width: 100%; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 24px 60px rgba(0,0,40,0.45); background: #0b1620; }
-.hero-scene canvas { display: block; }
-.hero-scene-caption { position: absolute; left: 0.9rem; bottom: 0.8rem; font-size: 0.82rem; background: rgba(0,0,128,0.7); padding: 0.3rem 0.7rem; border-radius: 6px; }
+.hero-card { background: var(--card); color: var(--text); border-radius: 14px; padding: 1.2rem 1.3rem; box-shadow: 0 24px 60px rgba(0,0,40,0.45); display: flex; flex-direction: column; gap: 0.8rem; max-width: 460px; justify-self: end; width: 100%; }
+.hero-card-head { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; font-weight: 600; color: var(--navy); }
+.hero-card-lines { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.hero-card-lines li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.45rem 0; border-top: 1px solid var(--border); font-size: 0.93rem; }
+.hero-card-lines li span:last-child { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hero-card-total { display: flex; justify-content: space-between; align-items: baseline; padding-top: 0.6rem; border-top: 2px solid var(--navy); }
+.hero-card-total strong { font-size: 1.5rem; color: var(--navy); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.hero-card-note { margin: 0; color: var(--muted); font-size: 0.85rem; }
 .steps { padding: 3.5rem 0; background: var(--card); }
 .steps-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem; }
 .steps-grid li { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.4rem; border: 1px solid var(--border); border-radius: 14px; background: var(--navy-50); }
@@ -184,6 +189,7 @@ label.row { flex-direction: row; align-items: center; }
 .footer-inner a { color: #fff; text-decoration: none; }
 @media (max-width: 900px) {
   .hero-inner, .shops-inner { grid-template-columns: 1fr; }
+  .hero-card { justify-self: stretch; max-width: none; }
   .steps-grid { grid-template-columns: 1fr; }
   .proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
