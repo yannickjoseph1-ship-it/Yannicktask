@@ -1,4 +1,6 @@
 const TOKEN_KEY = 'aquamarket.token';
+/** Base de l'API : relative en web (proxy Vite / nginx), absolue dans l'app mobile (VITE_API_URL). */
+const API_BASE = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '');
 
 export function getToken(): string | null {
   try {
@@ -31,7 +33,7 @@ export async function api<T>(path: string, init: RequestInit & { json?: unknown 
     headers.set('content-type', 'application/json');
     body = JSON.stringify(init.json);
   }
-  const res = await fetch(`/api${path}`, { ...init, headers, body });
+  const res = await fetch(`${API_BASE}/api${path}`, { ...init, headers, body });
   if (res.status === 204) return undefined as T;
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new ApiError(res.status, (data as { error?: string }).error ?? res.statusText, (data as { details?: unknown }).details);

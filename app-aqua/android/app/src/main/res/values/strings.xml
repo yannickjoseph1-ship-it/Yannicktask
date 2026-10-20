@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Aqu.app</string>
+    <string name="title_activity_main">Aqu.app</string>
+    <string name="package_name">app.aqu.mobile</string>
+    <string name="custom_url_scheme">app.aqu.mobile</string>
+</resources>

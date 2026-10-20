@@ -1,0 +1,27 @@
+{
+  "name": "@aquamarket/app-aqua",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Aqu.app mobile — coque native (Capacitor) autour du client web",
+  "scripts": {
+    "build:web": "npm run build -w client --prefix ..",
+    "sync": "npm run build:web && cap sync",
+    "add:android": "cap add android",
+    "add:ios": "cap add ios",
+    "open:android": "cap open android",
+    "open:ios": "cap open ios",
+    "run:android": "npm run sync && cap run android",
+    "run:ios": "npm run sync && cap run ios"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/app": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
+    "@capacitor/ios": "^8.0.0",
+    "@capacitor/splash-screen": "^8.0.0",
+    "@capacitor/status-bar": "^8.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.0.0"
+  }
+}
