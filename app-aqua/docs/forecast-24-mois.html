@@ -1,0 +1,413 @@
+<title>Forecast AquaMarket</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout : panneau d'hypothèses à gauche (collant), lecture à droite ; une colonne sur mobile. */
+:root {
+  --bg: #f3f6f8; --surface: #ffffff; --surface-2: #e9eff3; --line: #d5dee5;
+  --ink: #0f1b24; --ink-2: #4a5c69; --ink-3: #7b8c98;
+  --accent: #0e6f86; --accent-ink: #ffffff;
+  --rev: #2a78d6; --cost: #eb6834; --cash: #1baf7a; --tier-std: #86b6ef; --tier-prem: #2a78d6;
+  --good: #0ca30c; --critical: #d03b3b; --warning: #fab219;
+  --font-display: 'Sora', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d1419; --surface: #16202a; --surface-2: #1f2c37; --line: #2c3b48;
+  --ink: #eaf0f4; --ink-2: #aebcc7; --ink-3: #7d8e9b; --accent: #3fb3cc; --accent-ink: #06181e;
+  --rev: #3987e5; --cost: #d95926; --cash: #199e70; --tier-std: #86b6ef; --tier-prem: #2a78d6; color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --bg: #0d1419; --surface: #16202a; --surface-2: #1f2c37; --line: #2c3b48;
+  --ink: #eaf0f4; --ink-2: #aebcc7; --ink-3: #7d8e9b; --accent: #3fb3cc; --accent-ink: #06181e;
+  --rev: #3987e5; --cost: #d95926; --cash: #199e70; --tier-std: #86b6ef; --tier-prem: #2a78d6; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px 48px; }
+h1, h2, h3 { font-family: var(--font-display); margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.15rem; font-weight: 600; }
+h3 { font-size: 0.95rem; font-weight: 600; }
+p { margin: 0; }
+.eyebrow { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); font-weight: 600; }
+.muted { color: var(--ink-2); }
+.small { font-size: 0.85rem; }
+.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.wrap { max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+header.top { display: flex; flex-direction: column; gap: 8px; max-width: 70ch; }
+.layout { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .panel { position: static; } }
+.panel { position: sticky; top: env(safe-area-inset-top, 0px); max-height: calc(100vh - 16px); overflow: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 18px; }
+.scenarios { display: flex; gap: 6px; }
+.scenarios button { flex: 1; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink-2); border-radius: 8px; padding: 7px 4px; font: inherit; font-size: 0.85rem; cursor: pointer; }
+.scenarios button.active { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+.scenarios button:focus-visible, .ctl input:focus-visible, .tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.group { display: flex; flex-direction: column; gap: 10px; }
+.group h3 { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+.ctl { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; align-items: center; font-size: 0.85rem; color: var(--ink-2); }
+.ctl .val { font-family: var(--font-mono); font-variant-numeric: tabular-nums; color: var(--ink); font-size: 0.85rem; }
+.ctl input[type=range] { grid-column: 1 / -1; width: 100%; accent-color: var(--accent); margin: 0; }
+.ctl.check { grid-template-columns: auto 1fr; }
+.ctl.check input { width: 16px; height: 16px; accent-color: var(--accent); }
+main { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; }
+.kpi .v { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.45rem; font-weight: 500; line-height: 1.2; }
+.kpi .s { font-size: 0.8rem; color: var(--ink-2); }
+.kpi.good .v { color: var(--good); } .kpi.critical .v { color: var(--critical); }
+.pill { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--surface-2); color: var(--ink-2); width: fit-content; }
+.pill.good { color: var(--good); } .pill.critical { color: var(--critical); }
+.verdict { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 12px; padding: 14px 16px; max-width: 80ch; }
+.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; }
+.chart { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 14px 10px; display: flex; flex-direction: column; gap: 8px; min-width: 0; position: relative; }
+.chart.wide { grid-column: 1 / -1; }
+.chart header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.8rem; color: var(--ink-2); }
+.legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; background: var(--c); }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.chart .grid line { stroke: var(--line); stroke-width: 1; }
+.chart .axis text { fill: var(--ink-3); font-size: 11px; font-family: var(--font-mono); }
+.chart .zero { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 3 3; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 0.78rem; padding: 6px 8px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, calc(-100% - 10px)); display: none; z-index: 2; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.tip b { font-family: var(--font-body); font-weight: 600; }
+.table-card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.table-card header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.tabs { display: flex; gap: 4px; background: var(--surface-2); padding: 3px; border-radius: 8px; }
+.tabs button { border: 0; background: transparent; color: var(--ink-2); font: inherit; font-size: 0.82rem; padding: 4px 10px; border-radius: 6px; cursor: pointer; }
+.tabs button.active { background: var(--surface); color: var(--ink); font-weight: 600; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.85rem; min-width: 640px; }
+th, td { text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { color: var(--ink-3); font-weight: 500; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+th:first-child, td:first-child { text-align: left; }
+td { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+td.neg { color: var(--critical); }
+.notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.note { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+.note ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 0.9rem; }
+@media (prefers-reduced-motion: no-preference) { .kpi .v { transition: color 0.2s; } }
+</style>
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">Marketplace aquariophilie · modèle prévisionnel 24 mois</p>
+    <h1>Forecast AquaMarket</h1>
+    <p class="muted">Lancement supposé en janvier 2027, à la suite du MVP. Les revenus du MVP sont les abonnements magasins (Standard 29 € / Premium 79 € par mois). La commission sur ventes est une option de phase 2, désactivée par défaut. Ajustez les hypothèses à gauche : tout se recalcule.</p>
+  </header>
+
+  <div class="layout">
+    <aside class="panel" aria-label="Hypothèses">
+      <div class="group">
+        <h3>Scénario</h3>
+        <div class="scenarios" id="scenarios"></div>
+      </div>
+      <div class="group" id="g-demand"><h3>Demande (clients gratuits)</h3></div>
+      <div class="group" id="g-supply"><h3>Offre (magasins)</h3></div>
+      <div class="group" id="g-price"><h3>Prix &amp; phase 2</h3></div>
+      <div class="group" id="g-cost"><h3>Coûts &amp; capital</h3></div>
+    </aside>
+
+    <main>
+      <section class="verdict" id="verdict"></section>
+      <section class="kpis" id="kpis"></section>
+
+      <section class="charts">
+        <div class="chart wide">
+          <header><div><h2>Revenus mensuels et coûts</h2><p class="small muted">Euros par mois · le point mort est le premier mois où la courbe des revenus passe au-dessus des coûts</p></div>
+            <div class="legend"><span style="--c: var(--rev)">Revenus (MRR + commission)</span><span style="--c: var(--cost)">Coûts</span></div></header>
+          <div id="c-pnl"></div>
+        </div>
+        <div class="chart">
+          <header><div><h2>Trésorerie</h2><p class="small muted">Capital initial + résultats cumulés</p></div></header>
+          <div id="c-cash"></div>
+        </div>
+        <div class="chart">
+          <header><div><h2>Magasins abonnés actifs</h2><p class="small muted">Fin de mois, après churn</p></div>
+            <div class="legend"><span style="--c: var(--tier-std)">Standard</span><span style="--c: var(--tier-prem)">Premium</span></div></header>
+          <div id="c-shops"></div>
+        </div>
+      </section>
+
+      <section class="table-card">
+        <header><h2>Détail</h2>
+          <div class="tabs" role="tablist"><button type="button" class="active" id="tab-q" data-view="q" role="tab">Par trimestre</button><button type="button" id="tab-m" data-view="m" role="tab">Par mois</button></div></header>
+        <div class="scroll"><table id="table"></table></div>
+      </section>
+
+      <section class="notes">
+        <div class="note"><h3>Comment le modèle calcule</h3><ul>
+          <li>Clients : visiteurs × taux d'inscription → inscrits ; une part crée une configuration ; une part de ces configurations demande un devis. Le volume de devis × panier moyen donne la demande adressée aux magasins (intention d'achat, pas un revenu du MVP).</li>
+          <li>Magasins : à partir de M2, nouveaux abonnés = magasins démarchés × taux de signature, le volume de démarchage croissant chaque mois. Les magasins pilotes signent à M1. Le churn mensuel s'applique au parc avant d'ajouter les nouveaux.</li>
+          <li>Revenus : MRR = Standard × 29 € + Premium × 79 €. Frais Stripe 1,5 % + 0,25 € par abonnement. Commission (phase 2, optionnelle) = demande adressée × taux d'achat × taux de commission.</li>
+          <li>Coûts fixes : hébergement et outils, marketing, masse salariale. Pas d'amortissement ni de TVA : tous les montants sont HT.</li>
+        </ul></div>
+        <div class="note"><h3>Repères et limites</h3><ul>
+          <li>Marché adressable : environ 2 000 points de vente en France (animaleries, jardineries avec rayon aquariophilie, spécialistes). Estimation à confirmer ; 100 magasins représenteraient 5 % de pénétration.</li>
+          <li>Le panier moyen (520 €) vient des devis générés par le MVP sur des bacs de 60 à 240 L ; un bac marin dépasse 1 500 €.</li>
+          <li>La saisonnalité (pic septembre–décembre, creux estival) et les grands comptes (enseignes nationales) ne sont pas modélisés.</li>
+          <li>Les leads par magasin sont le vrai pilote du churn : si les devis par magasin et par mois tombent sous 3, le churn réel sera supérieur à l'hypothèse.</li>
+        </ul></div>
+      </section>
+    </main>
+  </div>
+</div>
+<script>
+// Modèle de forecast AquaMarket — 24 mois. Fonction pure, partagée page/validation.
+const MONTHS = 24;
+const SCENARIOS = {
+  prudent: { label: 'Prudent', visitors0: 1200, visitorGrowth: 8, signupRate: 6, configRate: 50, quoteRate: 25, basket: 480,
+    pilotShops: 3, outreach: 25, shopConv: 7, shopGrowth: 3, premiumShare: 20, churn: 5,
+    priceStd: 29, pricePrem: 79, hosting: 250, marketing: 800, payroll: 2500, capital: 50000,
+    commissionOn: false, takeRate: 5, purchaseRate: 15, commissionStart: 13 },
+  base: { label: 'Base', visitors0: 2000, visitorGrowth: 12, signupRate: 8, configRate: 60, quoteRate: 35, basket: 520,
+    pilotShops: 5, outreach: 30, shopConv: 10, shopGrowth: 5, premiumShare: 30, churn: 4,
+    priceStd: 29, pricePrem: 79, hosting: 250, marketing: 1200, payroll: 3000, capital: 50000,
+    commissionOn: false, takeRate: 5, purchaseRate: 20, commissionStart: 13 },
+  ambitieux: { label: 'Ambitieux', visitors0: 3000, visitorGrowth: 16, signupRate: 10, configRate: 65, quoteRate: 40, basket: 560,
+    pilotShops: 8, outreach: 40, shopConv: 12, shopGrowth: 7, premiumShare: 35, churn: 3,
+    priceStd: 29, pricePrem: 79, hosting: 300, marketing: 2500, payroll: 6000, capital: 80000,
+    commissionOn: true, takeRate: 5, purchaseRate: 20, commissionStart: 13 },
+};
+
+function runForecast(a) {
+  const rows = [];
+  let visitors = a.visitors0, std = 0, prem = 0, cash = a.capital, signupsCum = 0;
+  let breakEven = null, cashMin = Infinity, cashMinMonth = 1;
+  for (let m = 1; m <= MONTHS; m++) {
+    if (m > 1) visitors *= 1 + a.visitorGrowth / 100;
+    const signups = visitors * a.signupRate / 100;
+    signupsCum += signups;
+    const configs = signups * a.configRate / 100;
+    const quotes = configs * a.quoteRate / 100;
+    const gmv = quotes * a.basket;
+    // Magasins : churn puis nouveaux
+    const newShops = (m === 1 ? a.pilotShops : 0) + a.outreach * Math.pow(1 + a.shopGrowth / 100, m - 1) * a.shopConv / 100;
+    std = std * (1 - a.churn / 100) + newShops * (1 - a.premiumShare / 100);
+    prem = prem * (1 - a.churn / 100) + newShops * a.premiumShare / 100;
+    const shops = std + prem;
+    const mrr = std * a.priceStd + prem * a.pricePrem;
+    const commission = a.commissionOn && m >= a.commissionStart ? gmv * a.purchaseRate / 100 * a.takeRate / 100 : 0;
+    const revenue = mrr + commission;
+    const stripe = mrr * 0.015 + shops * 0.25 + commission * 0.015;
+    const costs = a.hosting + a.marketing + a.payroll + stripe;
+    const result = revenue - costs;
+    cash += result;
+    if (breakEven === null && result >= 0 && m > 1) breakEven = m;
+    if (cash < cashMin) { cashMin = cash; cashMinMonth = m; }
+    rows.push({ m, visitors, signups, signupsCum, configs, quotes, gmv, newShops, std, prem, shops, mrr, commission, revenue, stripe, costs, result, cash,
+      quotesPerShop: shops > 0 ? quotes / shops : 0 });
+  }
+  const last = rows[MONTHS - 1], m12 = rows[11];
+  return { rows, kpi: { mrr12: m12.mrr, mrr24: last.mrr, arr24: last.revenue * 12, shops24: last.shops, prem24: last.prem, signups24: last.signupsCum,
+    quotes24: rows.reduce((s, r) => s + r.quotes, 0), gmv24: rows.reduce((s, r) => s + r.gmv, 0), breakEven, cashMin, cashMinMonth, cash24: last.cash,
+    revenue24: rows.reduce((s, r) => s + r.revenue, 0), costs24: rows.reduce((s, r) => s + r.costs, 0) } };
+}
+
+function quarters(rows) {
+  const out = [];
+  for (let q = 0; q < 8; q++) {
+    const r = rows.slice(q * 3, q * 3 + 3), last = r[2];
+    out.push({ q: q + 1, signups: r.reduce((s, x) => s + x.signups, 0), quotes: r.reduce((s, x) => s + x.quotes, 0), shops: last.shops, prem: last.prem,
+      mrr: last.mrr, revenue: r.reduce((s, x) => s + x.revenue, 0), costs: r.reduce((s, x) => s + x.costs, 0), result: r.reduce((s, x) => s + x.result, 0), cash: last.cash });
+  }
+  return out;
+}
+if (typeof module !== 'undefined') module.exports = { MONTHS, SCENARIOS, runForecast, quarters };
+// ---------- Contrôles ----------
+const FIELDS = [
+  { g: 'g-demand', k: 'visitors0', l: 'Visiteurs au mois 1', min: 200, max: 10000, step: 100, f: (v) => fmtInt(v) },
+  { g: 'g-demand', k: 'visitorGrowth', l: 'Croissance mensuelle du trafic', min: 0, max: 30, step: 1, f: (v) => v + ' %' },
+  { g: 'g-demand', k: 'signupRate', l: "Taux d'inscription", min: 1, max: 25, step: 1, f: (v) => v + ' %' },
+  { g: 'g-demand', k: 'configRate', l: 'Inscrits qui configurent un bac', min: 10, max: 100, step: 5, f: (v) => v + ' %' },
+  { g: 'g-demand', k: 'quoteRate', l: 'Configurations qui demandent un devis', min: 5, max: 100, step: 5, f: (v) => v + ' %' },
+  { g: 'g-demand', k: 'basket', l: 'Panier moyen par devis', min: 100, max: 2000, step: 20, f: (v) => fmtEur(v) },
+  { g: 'g-supply', k: 'pilotShops', l: 'Magasins pilotes au lancement', min: 0, max: 30, step: 1, f: (v) => fmtInt(v) },
+  { g: 'g-supply', k: 'outreach', l: 'Magasins démarchés par mois', min: 0, max: 150, step: 5, f: (v) => fmtInt(v) },
+  { g: 'g-supply', k: 'shopConv', l: 'Taux de signature', min: 1, max: 40, step: 1, f: (v) => v + ' %' },
+  { g: 'g-supply', k: 'shopGrowth', l: 'Croissance mensuelle du démarchage', min: 0, max: 20, step: 1, f: (v) => v + ' %' },
+  { g: 'g-supply', k: 'premiumShare', l: 'Part Premium des nouveaux abonnés', min: 0, max: 100, step: 5, f: (v) => v + ' %' },
+  { g: 'g-supply', k: 'churn', l: 'Churn mensuel', min: 0, max: 15, step: 0.5, f: (v) => v + ' %' },
+  { g: 'g-price', k: 'priceStd', l: 'Abonnement Standard', min: 9, max: 199, step: 1, f: (v) => fmtEur(v) + ' / mois' },
+  { g: 'g-price', k: 'pricePrem', l: 'Abonnement Premium', min: 19, max: 499, step: 1, f: (v) => fmtEur(v) + ' / mois' },
+  { g: 'g-price', k: 'commissionOn', l: 'Commission sur ventes (phase 2)', type: 'check' },
+  { g: 'g-price', k: 'commissionStart', l: 'Mois de démarrage de la commission', min: 2, max: 24, step: 1, f: (v) => 'M' + v },
+  { g: 'g-price', k: 'purchaseRate', l: 'Devis convertis en achat', min: 0, max: 60, step: 5, f: (v) => v + ' %' },
+  { g: 'g-price', k: 'takeRate', l: 'Taux de commission', min: 0, max: 20, step: 0.5, f: (v) => v + ' %' },
+  { g: 'g-cost', k: 'hosting', l: 'Hébergement et outils', min: 0, max: 2000, step: 50, f: (v) => fmtEur(v) + ' / mois' },
+  { g: 'g-cost', k: 'marketing', l: 'Marketing et contenu', min: 0, max: 10000, step: 100, f: (v) => fmtEur(v) + ' / mois' },
+  { g: 'g-cost', k: 'payroll', l: 'Masse salariale', min: 0, max: 20000, step: 250, f: (v) => fmtEur(v) + ' / mois' },
+  { g: 'g-cost', k: 'capital', l: 'Capital initial', min: 0, max: 300000, step: 5000, f: (v) => fmtEur(v) },
+];
+const fmtInt = (v) => Math.round(v).toLocaleString('fr-FR');
+const fmtEur = (v) => Math.round(v).toLocaleString('fr-FR') + ' €';
+const fmtK = (v) => Math.abs(v) >= 1e6 ? (v / 1e6).toLocaleString('fr-FR', { maximumFractionDigits: 2 }) + ' M€' : Math.abs(v) >= 1000 ? (v / 1000).toLocaleString('fr-FR', { maximumFractionDigits: 1 }) + ' k€' : fmtEur(v);
+
+let state = { ...SCENARIOS.base };
+let scenario = 'base';
+let view = 'q';
+
+function buildControls() {
+  const sc = document.getElementById('scenarios');
+  for (const k of Object.keys(SCENARIOS)) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.textContent = SCENARIOS[k].label; b.id = 'sc-' + k; b.dataset.k = k;
+    b.addEventListener('click', () => { scenario = k; state = { ...SCENARIOS[k] }; syncControls(); render(); });
+    sc.appendChild(b);
+  }
+  for (const f of FIELDS) {
+    const g = document.getElementById(f.g);
+    const wrap = document.createElement('label');
+    wrap.className = 'ctl' + (f.type === 'check' ? ' check' : '');
+    wrap.htmlFor = 'f-' + f.k;
+    if (f.type === 'check') {
+      wrap.innerHTML = `<input type="checkbox" id="f-${f.k}"><span>${f.l}</span>`;
+      wrap.querySelector('input').addEventListener('change', (e) => { state[f.k] = e.target.checked; scenario = null; syncControls(); render(); });
+    } else {
+      wrap.innerHTML = `<span>${f.l}</span><span class="val" id="v-${f.k}"></span><input type="range" id="f-${f.k}" min="${f.min}" max="${f.max}" step="${f.step}">`;
+      wrap.querySelector('input').addEventListener('input', (e) => { state[f.k] = Number(e.target.value); scenario = null; syncControls(); render(); });
+    }
+    g.appendChild(wrap);
+  }
+}
+function syncControls() {
+  for (const f of FIELDS) {
+    const el = document.getElementById('f-' + f.k);
+    if (f.type === 'check') el.checked = Boolean(state[f.k]);
+    else { el.value = state[f.k]; document.getElementById('v-' + f.k).textContent = f.f(state[f.k]); }
+  }
+  for (const k of Object.keys(SCENARIOS)) document.getElementById('sc-' + k).classList.toggle('active', scenario === k);
+}
+
+// ---------- Rendu ----------
+function render() {
+  const r = runForecast(state);
+  renderVerdict(r); renderKpis(r); renderCharts(r); renderTable(r);
+}
+
+function renderVerdict({ kpi, rows }) {
+  const runway = rows.findIndex((x) => x.cash < 0);
+  const parts = [];
+  if (kpi.breakEven) parts.push(`Le modèle atteint le <strong>point mort au mois ${kpi.breakEven}</strong>`);
+  else parts.push(`Le modèle <strong>n'atteint pas le point mort en 24 mois</strong> : au mois 24, les revenus couvrent ${Math.round(rows[23].revenue / rows[23].costs * 100)} % des coûts`);
+  if (runway >= 0) parts.push(`la trésorerie devient négative au mois ${runway + 1} ; il manque ${fmtK(-kpi.cashMin)} au point bas pour tenir sans financement`);
+  else parts.push(`la trésorerie reste positive, avec un point bas de ${fmtK(kpi.cashMin)} au mois ${kpi.cashMinMonth}`);
+  const q = rows[23].quotesPerShop;
+  parts.push(`chaque magasin reçoit environ ${q.toLocaleString('fr-FR', { maximumFractionDigits: 1 })} devis par mois au mois 24, ${q >= 3 ? 'de quoi justifier l\'abonnement' : 'ce qui est insuffisant pour retenir les abonnés'}`);
+  const cap = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+  document.getElementById('verdict').innerHTML = `<p class="eyebrow">Lecture</p><p>${parts.map(cap).join('. ')}.</p>`;
+}
+
+function renderKpis({ kpi, rows }) {
+  const tiles = [
+    { l: 'MRR mois 12', v: fmtEur(kpi.mrr12), s: `${fmtInt(rows[11].shops)} magasins` },
+    { l: 'MRR mois 24', v: fmtEur(kpi.mrr24), s: `${fmtInt(kpi.shops24)} magasins dont ${fmtInt(kpi.prem24)} Premium` },
+    { l: 'Revenus cumulés 24 mois', v: fmtK(kpi.revenue24), s: `coûts cumulés ${fmtK(kpi.costs24)}` },
+    { l: 'Point mort', v: kpi.breakEven ? 'Mois ' + kpi.breakEven : 'Au-delà de M24', s: kpi.breakEven ? 'résultat mensuel positif' : 'revenus < coûts', cls: kpi.breakEven ? 'good' : 'critical' },
+    { l: 'Point bas de trésorerie', v: fmtK(kpi.cashMin), s: `mois ${kpi.cashMinMonth}`, cls: kpi.cashMin < 0 ? 'critical' : 'good' },
+    { l: 'Clients inscrits (24 mois)', v: fmtInt(kpi.signups24), s: `${fmtInt(kpi.quotes24)} devis demandés` },
+    { l: 'Demande adressée aux magasins', v: fmtK(kpi.gmv24), s: 'intention d\'achat cumulée (devis × panier)' },
+  ];
+  document.getElementById('kpis').innerHTML = tiles.map((t) => `<div class="kpi ${t.cls ?? ''}"><span class="eyebrow">${t.l}</span><span class="v">${t.v}</span><span class="s">${t.s}</span></div>`).join('');
+}
+
+// ---------- Graphiques SVG ----------
+const W = 720, PAD = { l: 52, r: 12, t: 12, b: 28 };
+function scale(domainMin, domainMax, rangeMin, rangeMax) { return (v) => rangeMin + (v - domainMin) / (domainMax - domainMin || 1) * (rangeMax - rangeMin); }
+function niceMax(v) { if (v <= 0) return 1; const p = Math.pow(10, Math.floor(Math.log10(v))); const n = v / p; const m = n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10; return m * p; }
+function niceStep(v) { const p = Math.pow(10, Math.floor(Math.log10(v))); const n = v / p; return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * p; }
+function ticks(min, max) { const step = niceStep((max - min) / 4); const out = []; for (let v = Math.ceil(min / step) * step; v <= max + 1e-9; v += step) out.push(v); return out; }
+function monthLabel(m) { const d = new Date(2027, m - 1, 1); return d.toLocaleDateString('fr-FR', { month: 'short', year: '2-digit' }); }
+
+function frame(H, yMin, yMax, series, opts = {}) {
+  const x = scale(1, MONTHS, PAD.l, W - PAD.r), y = scale(yMin, yMax, H - PAD.b, PAD.t);
+  const ty = ticks(yMin, yMax, 4);
+  let g = `<g class="grid">${ty.map((v) => `<line x1="${PAD.l}" x2="${W - PAD.r}" y1="${y(v)}" y2="${y(v)}"/>`).join('')}</g>`;
+  g += `<g class="axis">${ty.map((v) => `<text x="${PAD.l - 6}" y="${y(v) + 4}" text-anchor="end">${fmtK(v).replace(' €', '').replace(' k€', 'k').replace(' M€', 'M')}</text>`).join('')}`;
+  g += [1, 6, 12, 18, 24].map((m) => `<text x="${x(m)}" y="${H - 8}" text-anchor="middle">${monthLabel(m)}</text>`).join('') + '</g>';
+  if (yMin < 0) g += `<line class="zero" x1="${PAD.l}" x2="${W - PAD.r}" y1="${y(0)}" y2="${y(0)}"/>`;
+  return { x, y, g };
+}
+
+function lineChart(id, H, series, rows, opts = {}) {
+  const all = series.flatMap((s) => rows.map(s.get));
+  const yMin = opts.zero === false ? Math.min(0, ...all) : 0;
+  const yMinN = yMin < 0 ? -niceMax(-yMin) : 0;
+  const rawMax = Math.max(...all) * 1.05; const st = niceStep(rawMax / 4); const yMax = Math.ceil(rawMax / st) * st;
+  const { x, y, g } = frame(H, yMinN, yMax, series);
+  let body = '';
+  for (const s of series) {
+    const pts = rows.map((r) => `${x(r.m).toFixed(1)},${y(s.get(r)).toFixed(1)}`);
+    if (s.area) body += `<path d="M${x(1)},${y(0)} L${pts.join(' L')} L${x(MONTHS)},${y(0)} Z" fill="${s.color}" fill-opacity="0.15"/>`;
+    body += `<polyline points="${pts.join(' ')}" fill="none" stroke="${s.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+    const last = rows[MONTHS - 1];
+    body += `<circle cx="${x(MONTHS)}" cy="${y(s.get(last))}" r="4" fill="${s.color}" stroke="var(--surface)" stroke-width="2"/>`;
+  }
+  if (opts.marker) {
+    const m = opts.marker(rows);
+    if (m) body += `<line x1="${x(m.m)}" x2="${x(m.m)}" y1="${PAD.t}" y2="${H - PAD.b}" stroke="var(--ink-3)" stroke-dasharray="3 3"/><text x="${x(m.m) + 4}" y="${PAD.t + 10}" fill="var(--ink-2)" font-size="11" font-family="var(--font-body)">${m.label}</text>`;
+  }
+  const host = document.getElementById(id);
+  host.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${opts.label ?? ''}">${g}${body}<line id="${id}-x" x1="0" x2="0" y1="${PAD.t}" y2="${H - PAD.b}" stroke="var(--ink-2)" stroke-width="1" style="display:none"/><rect x="${PAD.l}" y="${PAD.t}" width="${W - PAD.l - PAD.r}" height="${H - PAD.t - PAD.b}" fill="transparent"/></svg><div class="tip" id="${id}-tip"></div>`;
+  hover(host, id, rows, (r) => series.map((s) => `${s.name} : ${fmtEur(s.get(r))}`), x, H);
+}
+
+function barChart(id, H, rows) {
+  const rawMax = Math.max(...rows.map((r) => r.shops)) * 1.05; const st = niceStep(rawMax / 4); const yMax = Math.ceil(rawMax / st) * st;
+  const { x, y, g } = frame(H, 0, yMax, []);
+  const bw = (W - PAD.l - PAD.r) / MONTHS - 2;
+  let body = '';
+  for (const r of rows) {
+    const x0 = x(r.m) - bw / 2;
+    const yStd = y(r.std), yPrem = y(r.shops);
+    body += `<rect x="${x0}" y="${yStd}" width="${bw}" height="${Math.max(0, y(0) - yStd)}" fill="var(--tier-std)"/>`;
+    body += `<rect x="${x0}" y="${yPrem}" width="${bw}" height="${Math.max(0, yStd - yPrem - 2)}" fill="var(--tier-prem)" rx="2"/>`;
+  }
+  const host = document.getElementById(id);
+  host.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Magasins actifs par mois">${g}${body}<line id="${id}-x" x1="0" x2="0" y1="${PAD.t}" y2="${H - PAD.b}" stroke="var(--ink-2)" style="display:none"/><rect x="${PAD.l}" y="${PAD.t}" width="${W - PAD.l - PAD.r}" height="${H - PAD.t - PAD.b}" fill="transparent"/></svg><div class="tip" id="${id}-tip"></div>`;
+  hover(host, id, rows, (r) => [`Standard : ${fmtInt(r.std)}`, `Premium : ${fmtInt(r.prem)}`, `Nouveaux : ${r.newShops.toLocaleString('fr-FR', { maximumFractionDigits: 1 })}`], x, H);
+}
+
+function hover(host, id, rows, lines, x, H) {
+  const svg = host.querySelector('svg'), tip = document.getElementById(id + '-tip'), cross = document.getElementById(id + '-x');
+  const move = (ev) => {
+    const rect = svg.getBoundingClientRect();
+    const px = (ev.clientX - rect.left) / rect.width * W;
+    const m = Math.max(1, Math.min(MONTHS, Math.round(1 + (px - PAD.l) / (W - PAD.l - PAD.r) * (MONTHS - 1))));
+    const r = rows[m - 1];
+    cross.style.display = ''; cross.setAttribute('x1', x(m)); cross.setAttribute('x2', x(m));
+    tip.style.display = 'block';
+    tip.innerHTML = `<b>M${m} · ${monthLabel(m)}</b><br>${lines(r).join('<br>')}`;
+    const left = x(m) / W * rect.width, top = Math.max(60, ((ev.clientY - rect.top)));
+    tip.style.left = left + 'px'; tip.style.top = top + 'px';
+  };
+  svg.addEventListener('pointermove', move);
+  svg.addEventListener('pointerleave', () => { tip.style.display = 'none'; cross.style.display = 'none'; });
+}
+
+function renderCharts({ rows, kpi }) {
+  lineChart('c-pnl', 260, [
+    { name: 'Revenus', get: (r) => r.revenue, color: 'var(--rev)', area: true },
+    { name: 'Coûts', get: (r) => r.costs, color: 'var(--cost)' },
+  ], rows, { label: 'Revenus et coûts mensuels', marker: () => kpi.breakEven ? { m: kpi.breakEven, label: 'Point mort M' + kpi.breakEven } : null });
+  lineChart('c-cash', 240, [{ name: 'Trésorerie', get: (r) => r.cash, color: 'var(--cash)', area: true }], rows, { zero: false, label: 'Trésorerie cumulée' });
+  barChart('c-shops', 240, rows);
+}
+
+function renderTable({ rows }) {
+  const cell = (v, eur = true) => `<td class="${v < 0 ? 'neg' : ''}">${eur ? fmtEur(v) : fmtInt(v)}</td>`;
+  let html = `<thead><tr><th>${view === 'q' ? 'Trimestre' : 'Mois'}</th><th>Inscrits</th><th>Devis</th><th>Magasins</th><th>dont Premium</th><th>MRR fin</th><th>Revenus</th><th>Coûts</th><th>Résultat</th><th>Trésorerie</th></tr></thead><tbody>`;
+  const data = view === 'q' ? quarters(rows) : rows;
+  for (const d of data) {
+    const label = view === 'q' ? `T${d.q} · ${monthLabel(d.q * 3)}` : `M${d.m} · ${monthLabel(d.m)}`;
+    const rev = view === 'q' ? d.revenue : d.revenue, costs = d.costs, res = d.result;
+    html += `<tr><td>${label}</td>${cell(d.signups, false)}${cell(d.quotes, false)}${cell(d.shops, false)}${cell(d.prem, false)}${cell(d.mrr)}${cell(rev)}${cell(costs)}${cell(res)}${cell(d.cash)}</tr>`;
+  }
+  document.getElementById('table').innerHTML = html + '</tbody>';
+}
+
+document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => {
+  view = b.dataset.view; document.querySelectorAll('.tabs button').forEach((x) => x.classList.toggle('active', x === b)); render();
+}));
+buildControls(); syncControls(); render();
+</script>

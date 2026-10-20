@@ -4,7 +4,7 @@
   "private": true,
   "description": "Aqu.app mobile — coque native (Capacitor) autour du client web",
   "scripts": {
-    "build:web": "npm run build -w client --prefix ..",
+    "build:web": "npm run build -w client --prefix ../..",
     "sync": "npm run build:web && cap sync",
     "add:android": "cap add android",
     "add:ios": "cap add ios",

@@ -7,7 +7,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'app.aqu.mobile',
   appName: 'Aqu.app',
-  webDir: '../client/dist',
+  webDir: '../../client/dist',
   backgroundColor: '#000080',
   ios: { contentInset: 'automatic' },
   android: { allowMixedContent: false },
