@@ -34,3 +34,26 @@ Format : Ogg Vorbis, 44,1 kHz, mono, crête à −3 dBFS, fin naturelle avec la 
 - **Aperçu :** `specimen_polices.png`, avec les accents, les guillemets « » et des textes du jeu.
 - **Intégration :** l'OFL demande de livrer `OFL.txt` avec les polices ; une ligne dans LICENCES.txt suffit.
 - **Graisses :** dans Godot 4, la police variable Source Sans 3 se règle par `variation_opentype` (axe `wght`). On peut aussi en tirer des variantes Regular et Bold dans le thème.
+
+## textes/evenements_proposes.json : 16 événements
+
+C'est la priorité 1 n° 3 de la session Godot. Le jeu n'a que 6 événements pour trois ans.
+
+- **9 événements historiques datés, de mai 1981 à novembre 1982 :**
+  - l'élection de Mitterrand ;
+  - l'été des Minguettes ;
+  - les radios libres ;
+  - les 39 heures ;
+  - les nationalisations ;
+  - la loi Defferre ;
+  - la retraite à 60 ans ;
+  - le blocage des prix ;
+  - la loi électorale du 19 novembre 1982.
+
+  Chacun cite son texte de loi ou sa source, et la partie inventée est signalée dans `_fictif`.
+- **7 crises locales :** la crue de la Vière, une classe menacée, la grève des éboueurs, un marché public douteux, le médecin du Bourg, la brouille Vasseur-Delorme, et les tribunes de Carminati (une ébauche de TXT-106).
+- **Aucun événement historique en 1980**, pour garder une première année douce (voir Lecons § 5). Les crises locales peuvent survenir dès 1980.
+- **Le format** est celui d'`evenements.json`. Les champs `effets` sont vides : les effets voulus sont écrits en clair dans `effets_proposes`, comme demandé. Trois événements ont une `suite` avec `memoire_choix`.
+- **Les champs `_declencheur_propose`** décrivent un déclencheur qui n'existe peut-être pas encore dans le code.
+- **Les champs `_image`** donnent un brief pour Higgsfield si aucune des 7 images existantes ne convient.
+- **Les dates historiques** viennent de la mémoire de la session cloud, avec les numéros de lois. Elles sont à vérifier rapidement avant intégration.

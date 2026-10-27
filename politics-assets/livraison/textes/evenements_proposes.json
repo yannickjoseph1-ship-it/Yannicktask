@@ -1,0 +1,340 @@
+{
+  "_lisez_moi": "Proposition de la session cloud « Assets Politics jeu ». 16 événements pour game/data/evenements.json : 9 historiques datés (1981-1982) et 7 crises locales conditionnelles. Les champs effets sont vides : les effets voulus sont écrits en clair dans effets_proposes, à traduire en données et à équilibrer par la session Godot. Les identifiants de PNJ reprennent ceux de l'inventaire ; vérifier ceux marqués « à confirmer ». Le champ fond reste à choisir parmi les 7 images d'événements existantes, ou une nouvelle image est à générer (brief dans _image). L'année 1980 ne reçoit que des crises locales légères, pour garder une première année douce.",
+  "evenements": [
+    {
+      "id": "hist_election_mitterrand",
+      "titre": "François Mitterrand élu président",
+      "famille": "date",
+      "declencheur": {"date": "1981-05-11"},
+      "contexte": "Hier soir à 20 heures, le visage de François Mitterrand est apparu sur les écrans : il est élu président de la République avec un peu plus de 51 % des voix. Place de la mairie, des militants de gauche ont klaxonné jusqu'à minuit ; au café du Commerce, on parle déjà de fuite des capitaux. Les deux camps du conseil vous regardent : le maire va-t-il prendre position ?",
+      "source": "Conseil constitutionnel, proclamation des résultats du second tour de l'élection présidentielle du 10 mai 1981 (13 mai 1981)",
+      "source_lisible": "Résultats officiels du second tour, 10 mai 1981",
+      "delai_reponse_jours": 7,
+      "choix_defaut": "reserve",
+      "fond": "à choisir",
+      "_image": "Place de mairie de province un soir de mai, voitures qui klaxonnent, drapeaux et roses, foule joyeuse d'un côté, terrasse de café aux visages fermés de l'autre. Pas de texte lisible.",
+      "son": "effets/evenement",
+      "choix": [
+        {"id": "saluer", "titre": "Saluer publiquement la victoire", "effets": [], "effets_proposes": "Les Tilleuls et la Chênaie apprécient (popularité +). Les Coteaux et le Bourg se crispent (popularité −). Position publique : nettement à gauche. Relation avec le président du conseil général selon son bord (à confirmer).", "texte_resultat": "Votre déclaration est lue dans la salle des fêtes pleine de militants. Aux Coteaux, quelques volets se ferment."},
+        {"id": "reserve", "titre": "Rester le maire de tous", "effets": [], "effets_proposes": "Aucun quartier ne bouge vraiment. Légère perte de crédibilité auprès des militants les plus engagés du groupe majoritaire si le maire est de gauche, gain de crédibilité modéré chez les modérés.", "texte_resultat": "« Le maire est le maire de tous les Saint-Aubinois. » La phrase est prudente ; elle ne fâche personne, elle n'enthousiasme personne."},
+        {"id": "inquietude", "titre": "Dire son inquiétude pour les finances locales", "effets": [], "effets_proposes": "Les Coteaux et le commerce du centre-ville apprécient. Les Tilleuls se méfient. Relation dégradée avec le contestataire.", "texte_resultat": "L'Écho de la Vière reprend votre phrase sur « la prudence budgétaire » en dernière page. Chez les militants de gauche, on la découpe pour s'en souvenir."}
+      ]
+    },
+    {
+      "id": "hist_ete_minguettes",
+      "titre": "L'été des rodéos",
+      "famille": "date",
+      "declencheur": {"date": "1981-07-15"},
+      "contexte": "À la télévision, les images des Minguettes, à Vénissieux : voitures volées, rodéos et incendies dans une cité HLM. Aux Tilleuls, deux voitures ont brûlé cette semaine. Les locataires demandent de l'éclairage et des animateurs ; les commerçants du centre réclament plus de police.",
+      "source": "Les « rodéos » du quartier des Minguettes à Vénissieux, juillet 1981 (presse nationale de l'été 1981)",
+      "source_lisible": "Été 1981, les Minguettes à Vénissieux",
+      "_fictif": "Les voitures brûlées aux Tilleuls et les réactions locales sont inventées.",
+      "delai_reponse_jours": 30,
+      "choix_defaut": "attendre",
+      "fond": "à choisir",
+      "_image": "Cité HLM de province au crépuscule d'été, carcasse de voiture fumante au pied des tours, enfants qui regardent de loin. Pas de texte lisible.",
+      "son": "effets/evenement",
+      "choix": [
+        {"id": "animateurs", "titre": "Embaucher deux animateurs pour l'été", "cout": "0,3 U", "effets": [], "effets_proposes": "Caisse −0,3 U. Tilleuls : sécurité +, tension −. Le contestataire apprécie. Les Coteaux trouvent cela coûteux (légère baisse).", "texte_resultat": "Deux moniteurs de colonie de vacances ouvrent le gymnase le soir. Le calme revient, au moins jusqu'à la rentrée."},
+        {"id": "eclairage", "titre": "Refaire l'éclairage des parkings", "cout": "0,5 U", "effets": [], "effets_proposes": "Caisse −0,5 U. Tilleuls : sécurité + (plus durable), voirie +. Effet visible au bout de deux mois.", "texte_resultat": "Les lampadaires neufs éclairent enfin le parking du bâtiment C. Les locataires remercient, les jeunes vont rouler ailleurs."},
+        {"id": "police", "titre": "Demander des rondes de police au préfet", "effets": [], "effets_proposes": "Centre-ville et Coteaux : sécurité +, popularité +. Tilleuls : tension +. Relation avec le préfet +, avec le contestataire −.", "texte_resultat": "Une voiture de police passe désormais chaque soir aux Tilleuls. Les commerçants respirent ; les jeunes du quartier parlent de provocation."},
+        {"id": "attendre", "titre": "Attendre la fin de l'été", "effets": [], "effets_proposes": "Tilleuls : tension ++, sécurité −. Le fait « désordre » pourra servir aux journalistes pendant la campagne.", "texte_resultat": "L'été passe. Trois autres voitures brûlent. À la rentrée, la lettre du comité de locataires est moins polie."}
+      ]
+    },
+    {
+      "id": "hist_radios_libres",
+      "titre": "Une radio libre à Saint-Aubin",
+      "famille": "date",
+      "declencheur": {"date": "1981-11-20"},
+      "contexte": "Depuis la loi du 9 novembre, les radios locales privées sont autorisées. Trois lycéens et un disquaire du centre-ville ont monté Radio Vière FM dans une ancienne cave. Ils demandent un local municipal et une petite subvention, et proposent au maire une chronique mensuelle.",
+      "source": "Loi n° 81-994 du 9 novembre 1981 portant dérogation au monopole d'État de la radiodiffusion",
+      "source_lisible": "Loi du 9 novembre 1981 sur les radios locales privées",
+      "_fictif": "La création de Radio Vière FM à Saint-Aubin est inventée ; cette radio existe déjà comme média de la campagne.",
+      "delai_reponse_jours": 30,
+      "choix_defaut": "ignorer",
+      "fond": "à choisir",
+      "_image": "Cave aménagée en studio de radio en 1981 : table de mixage, platines, boîtes d'œufs aux murs, deux jeunes avec casques. Pas de texte lisible.",
+      "son": "effets/evenement",
+      "choix": [
+        {"id": "local", "titre": "Prêter l'ancien local des pompiers", "cout": "0,1 U", "effets": [], "effets_proposes": "Caisse −0,1 U. Tilleuls et Chênaie : popularité + (public jeune). Mémoire : radio_amie. Pendant la campagne, Thierry Vannier (Radio Vière FM) devient un peu moins mordant.", "texte_resultat": "Radio Vière FM émet désormais depuis la caserne désaffectée. Le premier disque passé à l'antenne est dédié « au maire, qui nous a ouvert la porte »."},
+        {"id": "chronique", "titre": "Accepter seulement la chronique", "effets": [], "effets_proposes": "Influence + (le maire parle chaque mois sur les ondes). Mémoire : radio_chronique. Légère accusation de récupération chez le contestataire.", "texte_resultat": "Chaque premier lundi du mois, le maire répond aux auditeurs. Les questions ne sont pas toutes aimables."},
+        {"id": "ignorer", "titre": "Ne pas s'en mêler", "effets": [], "effets_proposes": "Aucun coût. Mémoire : radio_ignoree. Pendant la campagne, Thierry Vannier est un peu plus mordant.", "texte_resultat": "La radio se débrouille seule. Son animateur vedette fait de la mairie une cible facile de ses chroniques du samedi."}
+      ],
+      "suite": {
+        "date": "1982-09-15",
+        "titre": "Radio Vière FM s'en souvient",
+        "texte": "La campagne s'ouvre. Radio Vière FM annonce son programme d'entretiens avec les candidats.",
+        "effets_selon_choix": {"radio_amie": [], "radio_chronique": [], "radio_ignoree": []},
+        "_effets_proposes": "radio_amie : premier entretien plus accueillant. radio_chronique : neutre. radio_ignoree : premier entretien plus dur."
+      }
+    },
+    {
+      "id": "hist_39_heures",
+      "titre": "Les 39 heures à la mairie",
+      "famille": "date",
+      "declencheur": {"date": "1982-02-01"},
+      "contexte": "L'ordonnance du 16 janvier fixe la durée légale du travail à 39 heures et accorde une cinquième semaine de congés payés. Le secrétaire général vous prévient : pour les agents municipaux, il faut réorganiser les services. Les syndicats demandent que l'heure gagnée le soit sans perte de salaire, les chefs de service craignent pour le ramassage et la cantine.",
+      "source": "Ordonnance n° 82-41 du 16 janvier 1982 relative à la durée du travail et aux congés payés",
+      "source_lisible": "Ordonnance du 16 janvier 1982 (39 heures, 5e semaine)",
+      "_fictif": "L'application aux agents de Saint-Aubin est inventée ; dans la réalité, la fonction publique territoriale a suivi par d'autres textes.",
+      "delai_reponse_jours": 30,
+      "choix_defaut": "reorganiser",
+      "fond": "à choisir",
+      "_image": "Bureau du secrétaire général de mairie, plannings punaisés au mur, agents municipaux en bleu de travail à la porte. Pas de texte lisible.",
+      "son": "effets/evenement",
+      "choix": [
+        {"id": "embaucher", "titre": "Embaucher pour garder les mêmes horaires de service", "effets": [], "effets_proposes": "Charge récurrente : environ 0,3 U par an. Services maintenus. Le personnel et le contestataire apprécient. Les Coteaux grognent sur la dépense.", "texte_resultat": "Quatre agents de plus. La cantine et le ramassage ne changent pas d'horaire ; le budget, si."},
+        {"id": "reorganiser", "titre": "Réorganiser les services à moyens constants", "effets": [], "effets_proposes": "Aucun coût. Voirie −1 dans tous les quartiers pendant six mois (ramassage moins fréquent). Relation avec le secrétaire général +.", "texte_resultat": "Le ramassage passe de trois à deux tournées par semaine dans les quartiers pavillonnaires. Les plaintes arrivent avec le printemps."},
+        {"id": "reporter", "titre": "Demander un délai d'application", "effets": [], "effets_proposes": "Tension + chez le personnel. Risque de grève des agents (peut déclencher l'événement local « Grève des éboueurs »).", "texte_resultat": "Les syndicats du personnel affichent leur colère sur le panneau de la cantine."}
+      ]
+    },
+    {
+      "id": "hist_nationalisations",
+      "titre": "L'usine passe à l'État",
+      "famille": "date",
+      "declencheur": {"date": "1982-02-15"},
+      "contexte": "La loi de nationalisation est promulguée. Le groupe qui possède l'usine de la route de la Chênaie passe sous contrôle de l'État. Le nouveau directeur, nommé par Paris, vient se présenter à la mairie. Il promet l'emploi ; il parle aussi de « modernisation ».",
+      "source": "Loi n° 82-155 du 11 février 1982 de nationalisation",
+      "source_lisible": "Loi de nationalisation du 11 février 1982",
+      "_fictif": "L'usine de Saint-Aubin et son groupe sont inventés.",
+      "delai_reponse_jours": 30,
+      "choix_defaut": "accueil",
+      "fond": "à choisir",
+      "_image": "Grille d'une usine de province en hiver, ouvriers à la sortie de l'équipe, un homme en costume sortant d'une voiture officielle. Pas de texte lisible.",
+      "son": "effets/evenement",
+      "choix": [
+        {"id": "garanties", "titre": "Exiger des garanties écrites sur l'emploi", "effets": [], "effets_proposes": "Chênaie : popularité +, tension −. Mémoire : usine_garanties. Relation avec le préfet −, il trouve le ton exigeant.", "texte_resultat": "Le directeur signe une lettre prudente : « pas de suppression d'emploi sans reclassement ». À la Chênaie, on la photocopie."},
+        {"id": "accueil", "titre": "Recevoir le directeur avec les honneurs", "effets": [], "effets_proposes": "Aucun effet immédiat. Mémoire : usine_accueil. Commerce du centre-ville +, rassuré.", "texte_resultat": "Vin d'honneur dans la salle des mariages. Le directeur repart avec la médaille de la ville et sans rien avoir promis."},
+        {"id": "zone", "titre": "Proposer un terrain pour un nouvel atelier", "cout": "0,4 U", "effets": [], "effets_proposes": "Caisse −0,4 U (viabilisation). Mémoire : usine_atelier. Chênaie : pouvoir d'achat + à terme. Coteaux : inquiétude pour le paysage.", "texte_resultat": "Le terrain des Prés-Bas est proposé à l'usine. Les riverains des Coteaux découvrent le projet dans le journal."}
+      ],
+      "suite": {
+        "date": "1982-11-15",
+        "titre": "La modernisation de l'usine",
+        "texte": "La direction annonce un plan de modernisation de l'usine.",
+        "effets_selon_choix": {"usine_garanties": [], "usine_accueil": [], "usine_atelier": []},
+        "_effets_proposes": "usine_garanties : 40 départs en préretraite, sans licenciement, la Chênaie reste calme. usine_accueil : 60 suppressions de postes, cortège à la Chênaie (tension ++). usine_atelier : 80 emplois créés à l'atelier neuf, pouvoir d'achat + à la Chênaie et au Bourg."
+      }
+    },
+    {
+      "id": "hist_loi_defferre",
+      "titre": "La fin de la tutelle",
+      "famille": "date",
+      "declencheur": {"date": "1982-03-10"},
+      "contexte": "La loi du 2 mars sur les droits et libertés des communes supprime la tutelle administrative a priori du préfet : vos délibérations sont exécutoires dès leur transmission, et le représentant de l'État ne peut plus que les déférer au tribunal administratif. Le secrétaire général se frotte les mains, le préfet un peu moins.",
+      "source": "Loi n° 82-213 du 2 mars 1982 relative aux droits et libertés des communes, des départements et des régions",
+      "source_lisible": "Loi Defferre du 2 mars 1982",
+      "delai_reponse_jours": 30,
+      "choix_defaut": "prudence",
+      "fond": "à choisir",
+      "_image": "Bureau de préfecture aux boiseries sombres, un préfet en uniforme regardant par la fenêtre, un dossier ficelé sur son bureau. Pas de texte lisible.",
+      "son": "effets/evenement",
+      "choix": [
+        {"id": "audace", "titre": "En profiter pour lancer vite les projets bloqués", "effets": [], "effets_proposes": "Les projets en attente d'approbation préfectorale avancent d'un mois. Relation avec le préfet −. Risque : une délibération mal ficelée peut être déférée au tribunal (événement possible plus tard).", "texte_resultat": "Trois dossiers qui dormaient à la préfecture partent en exécution. Le préfet vous écrit une lettre très courtoise et très froide."},
+        {"id": "prudence", "titre": "Garder de bons rapports avec le préfet", "effets": [], "effets_proposes": "Relation avec le préfet +. Pas d'accélération des projets. Crédibilité + auprès de l'opposition modérée.", "texte_resultat": "Vous continuez d'envoyer les dossiers au préfet « pour avis ». Il apprécie le geste ; il le dira, le jour où vous en aurez besoin."}
+      ]
+    },
+    {
+      "id": "hist_retraite_60",
+      "titre": "La retraite à 60 ans",
+      "famille": "date",
+      "declencheur": {"date": "1982-04-05"},
+      "contexte": "L'ordonnance du 26 mars abaisse l'âge de la retraite à 60 ans à partir d'avril 1983. Au club du troisième âge, on fait les comptes ; à la Chênaie, les ouvriers de l'usine de 58 ans comptent les mois. Le club demande une salle plus grande et des sorties.",
+      "source": "Ordonnance n° 82-270 du 26 mars 1982 relative à l'abaissement de l'âge de la retraite des assurés du régime général",
+      "source_lisible": "Ordonnance du 26 mars 1982 (retraite à 60 ans)",
+      "_fictif": "Le club du troisième âge de Saint-Aubin et sa demande sont inventés.",
+      "delai_reponse_jours": 45,
+      "choix_defaut": "plus_tard",
+      "fond": "à choisir",
+      "_image": "Club du troisième âge dans une salle municipale, tables de belote, affiche de voyage en car, retraités souriants. Pas de texte lisible.",
+      "son": "effets/evenement",
+      "choix": [
+        {"id": "salle", "titre": "Agrandir la salle du club", "cout": "0,6 U", "effets": [], "effets_proposes": "Caisse −0,6 U. Bourg et Coteaux (électorat âgé) : popularité +. Fait « réalisation » utilisable en campagne.", "texte_resultat": "La salle du club gagne une véranda. Le président du club promet de « ne pas l'oublier en mars »."},
+        {"id": "car", "titre": "Financer deux sorties en car par an", "cout": "0,1 U", "effets": [], "effets_proposes": "Charge récurrente faible (0,1 U par an). Bourg : popularité légère +.", "texte_resultat": "Première sortie : le marché de Noël de la préfecture. Le car revient en chantant."},
+        {"id": "plus_tard", "titre": "Remettre à l'an prochain", "effets": [], "effets_proposes": "Aucun coût. Légère baisse chez les retraités du Bourg. Le porte-parole du Bourg peut en parler en meeting.", "texte_resultat": "Le club inscrit sa demande dans le cahier de doléances. Avec la date."}
+      ]
+    },
+    {
+      "id": "hist_blocage_prix",
+      "titre": "Le blocage des prix",
+      "famille": "date",
+      "declencheur": {"date": "1982-06-20"},
+      "contexte": "Après la dévaluation du franc, le gouvernement bloque les prix et les salaires jusqu'à la fin octobre. Les commerçants du centre-ville grognent : leurs fournisseurs, eux, augmentent. Pour la commune, les tarifs de la cantine et de la piscine sont gelés, alors que les chantiers en cours coûtent déjà plus cher.",
+      "source": "Dévaluation du franc du 12 juin 1982 et blocage des prix et des revenus ; loi n° 82-660 du 30 juillet 1982 sur les prix et les revenus",
+      "source_lisible": "Blocage des prix et des salaires de juin 1982",
+      "delai_reponse_jours": 30,
+      "choix_defaut": "absorber",
+      "fond": "à choisir",
+      "_image": "Rue commerçante de centre-ville en 1982, épicier qui change une étiquette de prix, ménagère au panier. Pas de texte lisible.",
+      "son": "effets/evenement",
+      "choix": [
+        {"id": "absorber", "titre": "Absorber le surcoût des chantiers", "effets": [], "effets_proposes": "Ligne budget de l'exercice en cours : environ −0,4 U en investissement. Pas d'effet sur l'opinion.", "texte_resultat": "La commune paie la différence. Le budget supplémentaire de l'automne sera serré."},
+        {"id": "etaler", "titre": "Étaler les chantiers sur l'an prochain", "effets": [], "effets_proposes": "Un projet en cours prend trois mois de retard. Le quartier concerné perd un peu de satisfaction. Fait « abandon » ou « retard » possible en campagne.", "texte_resultat": "Les engins quittent le chantier du gymnase pour l'été. Un panneau « travaux suspendus » reste planté au milieu."},
+        {"id": "commercants", "titre": "Réunir les commerçants pour les écouter", "effets": [], "effets_proposes": "Centre-ville : commerce +, popularité légère +. Aucun coût. Relation avec l'opposition modérée +.", "texte_resultat": "Deux heures de doléances dans la salle des mariages. Vous ne pouvez rien sur les prix ; vous avez écouté, et cela s'est su."}
+      ]
+    },
+    {
+      "id": "hist_loi_electorale",
+      "titre": "La nouvelle loi électorale",
+      "famille": "date",
+      "declencheur": {"date": "1982-11-25"},
+      "contexte": "La loi du 19 novembre change les règles des municipales dans les communes de 3 500 habitants et plus : la liste en tête obtient la moitié des sièges, le reste est réparti à la proportionnelle. Pour la première fois, l'opposition siégera à coup sûr au conseil de Saint-Aubin. Carminati jubile ; dans votre majorité, certains calculent leur place sur la liste.",
+      "source": "Loi n° 82-974 du 19 novembre 1982 modifiant le code électoral et le code des communes relative à l'élection des conseillers municipaux",
+      "source_lisible": "Loi du 19 novembre 1982 sur l'élection des conseillers municipaux",
+      "delai_reponse_jours": 30,
+      "choix_defaut": "rassurer",
+      "fond": "à choisir",
+      "_image": "Réunion de section le soir dans une arrière-salle de café, tableau noir couvert de chiffres et de noms, fumée de cigarettes. Pas de texte lisible.",
+      "son": "effets/evenement",
+      "choix": [
+        {"id": "rassurer", "titre": "Rassurer les sortants sur leur place", "effets": [], "effets_proposes": "Discipline de la majorité +. Engagement pris (poste promis possible). Moins de renouvellement sur la liste.", "texte_resultat": "Chaque sortant repart avec une promesse. Il faudra les tenir toutes en janvier."},
+        {"id": "renouveler", "titre": "Annoncer une liste renouvelée", "effets": [], "effets_proposes": "Popularité + dans tous les quartiers (image de renouveau). Relation −− avec deux ou trois élus sortants ; risque de dissidence.", "texte_resultat": "« Un tiers de nouveaux visages. » La phrase plaît au marché ; elle déplaît au premier adjoint."},
+        {"id": "ouvrir", "titre": "Ouvrir la liste à des personnalités locales", "effets": [], "effets_proposes": "Influence +. Bourg et Coteaux : popularité + (le pharmacien, le président du club de foot). Relation − avec le contestataire.", "texte_resultat": "Le pharmacien du Bourg accepte de figurer en neuvième position. Il a beaucoup de clients."}
+      ]
+    },
+    {
+      "id": "local_crue_viere",
+      "titre": "La Vière déborde",
+      "famille": "conditionnel",
+      "declencheur": {"fenetre": ["1980-11-01", "1982-03-31"], "conditions": [{"type": "mois_in", "mois": [12, 1, 2, 3]}], "une_fois": true},
+      "contexte": "Après dix jours de pluie, la Vière est sortie de son lit. Les caves du Bourg sont inondées, la route des Coteaux est coupée et l'école du Bourg ferme deux jours. Les pompiers sont débordés ; les riverains attendent le maire en bottes.",
+      "source": "Événement local fictif",
+      "source_lisible": "Événement local",
+      "_fictif": "Entièrement inventé.",
+      "delai_reponse_jours": 7,
+      "choix_defaut": "terrain",
+      "fond": "à choisir",
+      "_image": "Rue de bourg inondée, eau boueuse jusqu'aux genoux, pompiers en barque, habitants sur le pas de leur porte. Pas de texte lisible.",
+      "son": "effets/evenement",
+      "choix": [
+        {"id": "terrain", "titre": "Aller sur place, en bottes", "effets": [], "effets_proposes": "Bourg : popularité ++ (le maire était là). Aucun coût. Crédibilité +.", "texte_resultat": "La photo du maire de l'eau jusqu'aux genoux fait la une de L'Écho de la Vière."},
+        {"id": "aide", "titre": "Voter une aide d'urgence aux sinistrés", "cout": "0,5 U", "effets": [], "effets_proposes": "Caisse −0,5 U. Bourg : pouvoir d'achat +, popularité +. Coteaux : légère hausse aussi (route rouverte vite).", "texte_resultat": "Les sinistrés reçoivent un chèque de la mairie avant même l'expert des assurances."},
+        {"id": "digue", "titre": "Annoncer une étude pour une digue", "cout": "0,2 U", "effets": [], "effets_proposes": "Caisse −0,2 U. Crée un projet « digue de la Vière » proposable au conseil. Engagement : s'il n'est pas lancé avant l'élection, fait « promesse rompue ».", "texte_resultat": "Un bureau d'études vient mesurer la berge. Les riverains retiennent surtout le mot « digue »."}
+      ]
+    },
+    {
+      "id": "local_fermeture_classe",
+      "titre": "Une classe menacée aux Coteaux",
+      "famille": "conditionnel",
+      "declencheur": {"fenetre": ["1980-03-01", "1982-06-30"], "conditions": [{"type": "mois_in", "mois": [3, 4]}], "une_fois": true},
+      "contexte": "L'inspection académique annonce la fermeture d'une classe à l'école des Coteaux à la rentrée : il manque quatre élèves. Les parents occupent l'école ce matin, banderoles aux fenêtres. L'adjointe aux affaires scolaires vous attend dans la cour.",
+      "source": "Événement local fictif",
+      "source_lisible": "Événement local",
+      "_fictif": "Entièrement inventé ; les fermetures de classes pour baisse d'effectifs étaient fréquentes à l'époque.",
+      "delai_reponse_jours": 14,
+      "choix_defaut": "lettre",
+      "fond": "à choisir",
+      "_image": "École primaire de province, banderole de parents d'élèves aux fenêtres, mères et enfants dans la cour, une institutrice. Pas de texte lisible.",
+      "son": "effets/evenement",
+      "choix": [
+        {"id": "occupation", "titre": "Rejoindre les parents dans l'école", "effets": [], "effets_proposes": "Coteaux : popularité ++, école +. Relation avec le préfet − (l'État n'aime pas voir le maire contre l'inspection). Relation avec l'adjointe scolaire +.", "texte_resultat": "Le maire et l'adjointe passent la nuit à l'école avec les parents. Le recteur reçoit une photo et un dossier."},
+        {"id": "lettre", "titre": "Écrire à l'inspecteur d'académie", "effets": [], "effets_proposes": "Coteaux : école légère +. Une chance sur deux que la classe soit maintenue (à régler dans la suite ou par tirage).", "texte_resultat": "La lettre part en recommandé, avec la liste des naissances à venir dans le quartier."},
+        {"id": "regrouper", "titre": "Proposer un regroupement avec l'école du Bourg", "effets": [], "effets_proposes": "Coteaux : popularité −, école −. Bourg : école + (la classe y reste). Relation avec l'adjointe scolaire −.", "texte_resultat": "Les enfants des Coteaux prendront le car scolaire. Leurs parents prennent note."}
+      ]
+    },
+    {
+      "id": "local_greve_eboueurs",
+      "titre": "Grève des éboueurs",
+      "famille": "conditionnel",
+      "declencheur": {"fenetre": ["1981-01-01", "1982-12-31"], "conditions": [], "une_fois": true},
+      "_declencheur_propose": "Si le choix « reporter » de hist_39_heures a été fait, ou si la ligne budgétaire du personnel baisse deux exercices de suite (ligne_budget_inferieure_deux_exercices).",
+      "contexte": "Les agents du ramassage des ordures cessent le travail : ils réclament une prime d'insalubrité et un camion neuf. Au troisième jour, les poubelles débordent devant le marché et l'odeur monte avec la chaleur.",
+      "source": "Événement local fictif",
+      "source_lisible": "Événement local",
+      "_fictif": "Entièrement inventé.",
+      "delai_reponse_jours": 10,
+      "choix_defaut": "tenir",
+      "fond": "à choisir",
+      "_image": "Rue de centre-ville avec poubelles qui débordent devant une halle de marché, benne arrêtée, agents en grève avec un brasero. Pas de texte lisible.",
+      "son": "effets/evenement",
+      "choix": [
+        {"id": "ceder", "titre": "Accorder la prime", "effets": [], "effets_proposes": "Charge récurrente : environ 0,15 U par an. Fin immédiate de la grève. Le contestataire apprécie ; l'adjoint aux finances soupire.", "texte_resultat": "Les bennes repartent le soir même. La prime figurera au budget pour longtemps."},
+        {"id": "camion", "titre": "Acheter le camion, pas la prime", "cout": "0,4 U", "effets": [], "effets_proposes": "Caisse −0,4 U. Grève terminée au bout d'une semaine. Voirie + dans tous les quartiers (ramassage plus fiable).", "texte_resultat": "Le camion neuf arrive en mars, peint aux couleurs de la ville. Les agents l'ont accepté du bout des lèvres."},
+        {"id": "tenir", "titre": "Ne rien céder", "effets": [], "effets_proposes": "Voirie −− et popularité − dans tous les quartiers pendant deux mois. Fait « désordre » pour la campagne. Les Coteaux apprécient la fermeté.", "texte_resultat": "La grève dure trois semaines. Les photos des poubelles font le tour des journaux de la région."}
+      ]
+    },
+    {
+      "id": "local_marche_public",
+      "titre": "Un marché qui sent mauvais",
+      "famille": "conditionnel",
+      "declencheur": {"fenetre": ["1981-03-01", "1982-10-31"], "conditions": [], "une_fois": true},
+      "_declencheur_propose": "Après la livraison d'un projet de travaux (mesure_appliquee sur un projet de voirie ou de bâtiment).",
+      "contexte": "Odile Ferrand, de La Dépêche de la Vière, vous appelle : l'entreprise qui a obtenu le dernier chantier de la commune appartient au beau-frère de l'adjoint aux travaux. Elle publie samedi et vous demande votre réaction.",
+      "source": "Événement local fictif",
+      "source_lisible": "Événement local",
+      "_fictif": "Entièrement inventé.",
+      "delai_reponse_jours": 5,
+      "choix_defaut": "enquete",
+      "fond": "à choisir",
+      "_image": "Bureau de mairie le soir, téléphone à cadran décroché, dossier d'appel d'offres ouvert, lampe de bureau. Pas de texte lisible.",
+      "son": "effets/evenement",
+      "choix": [
+        {"id": "enquete", "titre": "Annoncer une vérification interne", "effets": [], "effets_proposes": "Crédibilité + légère. Relation avec l'adjoint aux travaux −. L'affaire reste un fait de campagne de gravité 1.", "texte_resultat": "L'article paraît avec votre phrase : « Toute la lumière sera faite. » Elle est en gras."},
+        {"id": "retirer", "titre": "Retirer sa délégation à l'adjoint", "effets": [], "effets_proposes": "Crédibilité ++. L'adjoint aux travaux quitte la majorité (exclure_du_groupe) ; discipline −. L'affaire ne revient pas en campagne.", "texte_resultat": "L'adjoint rend son écharpe en séance. Il siégera désormais au fond de la salle, et votera contre."},
+        {"id": "defendre", "titre": "Défendre l'adjoint : le marché était régulier", "effets": [], "effets_proposes": "Relation avec l'adjoint aux travaux ++. Crédibilité −. Risque : si un contrôle prouve le contraire (tirage), fait de campagne de gravité 3.", "texte_resultat": "« L'appel d'offres a été respecté. » Odile Ferrand garde le dossier ouvert dans son tiroir."}
+      ]
+    },
+    {
+      "id": "local_medecin_bourg",
+      "titre": "Le médecin du Bourg s'en va",
+      "famille": "conditionnel",
+      "declencheur": {"fenetre": ["1980-06-01", "1982-09-30"], "conditions": [], "une_fois": true},
+      "_declencheur_propose": "Si l'indicateur santé du Bourg est bas (confiance_inferieure ou condition équivalente sur l'indicateur, à créer).",
+      "contexte": "Le docteur Lacoste, seul médecin du Bourg depuis trente ans, part à la retraite à la fin de l'année. Personne ne reprend son cabinet. Les anciens du Bourg s'inquiètent : le plus proche médecin sera au centre-ville, à six kilomètres.",
+      "source": "Événement local fictif",
+      "source_lisible": "Événement local",
+      "_fictif": "Entièrement inventé.",
+      "delai_reponse_jours": 30,
+      "choix_defaut": "annonce",
+      "fond": "à choisir",
+      "_image": "Cabinet de médecin de campagne, plaque émaillée, salle d'attente vide, vieux médecin rangeant sa sacoche. Pas de texte lisible.",
+      "son": "effets/evenement",
+      "choix": [
+        {"id": "cabinet", "titre": "Offrir un cabinet et un logement à un jeune médecin", "cout": "0,3 U", "effets": [], "effets_proposes": "Caisse −0,3 U. Bourg : santé ++, popularité +. Une jeune médecin s'installe au printemps.", "texte_resultat": "Le docteur Marchal, trente ans, installe sa plaque à côté de la poste. Le Bourg vient la voir par curiosité, puis par besoin."},
+        {"id": "annonce", "titre": "Passer une annonce dans la presse médicale", "effets": [], "effets_proposes": "Aucun coût. Une chance sur trois de trouver un successeur ; sinon Bourg : santé −−.", "texte_resultat": "L'annonce paraît dans le Quotidien du médecin. Le téléphone sonne peu."},
+        {"id": "car_medical", "titre": "Organiser une navette vers le centre-ville", "cout": "0,1 U", "effets": [], "effets_proposes": "Charge récurrente faible. Bourg : santé légère +, popularité stable. Les anciens apprécient, les jeunes familles moins.", "texte_resultat": "Le mardi et le vendredi, une navette conduit les patients du Bourg au cabinet du centre."}
+      ]
+    },
+    {
+      "id": "local_brouille_adjoints",
+      "titre": "Brouille entre adjoints",
+      "famille": "conditionnel",
+      "declencheur": {"fenetre": ["1980-09-01", "1982-08-31"], "conditions": [], "une_fois": true},
+      "_declencheur_propose": "Quand le budget scolaire et le budget de voirie sont votés le même exercice, ou par tirage.",
+      "contexte": "En réunion de municipalité, le ton monte entre le premier adjoint, Vasseur, et l'adjointe aux affaires scolaires, Delorme. Le sujet : la dernière enveloppe du budget, que l'un veut pour la voirie et l'autre pour la cantine. Delorme claque la porte ; Vasseur vous demande de trancher « avant ce soir ».",
+      "source": "Événement local fictif",
+      "source_lisible": "Événement local",
+      "_fictif": "Entièrement inventé, à partir des personnages existants (à confirmer : identifiants premier_adjoint et adjointe_scolaire).",
+      "delai_reponse_jours": 3,
+      "choix_defaut": "couper",
+      "fond": "à choisir",
+      "_image": "Salle de réunion de la municipalité, chaise renversée, porte entrouverte, dossiers éparpillés sur une table en formica. Pas de texte lisible.",
+      "son": "effets/porte_bureau",
+      "choix": [
+        {"id": "vasseur", "titre": "Donner raison à Vasseur : la voirie", "effets": [], "effets_proposes": "Relation premier_adjoint +, adjointe_scolaire −−. Voirie + dans tous les quartiers. Risque de dissidence de Delorme si sa confiance tombe bas.", "texte_resultat": "Delorme vote le budget en silence. Elle ne vous salue plus dans les couloirs."},
+        {"id": "delorme", "titre": "Donner raison à Delorme : la cantine", "effets": [], "effets_proposes": "Relation adjointe_scolaire +, premier_adjoint −−. École + dans tous les quartiers. Le premier adjoint commence à parler de « sa » liste.", "texte_resultat": "La cantine aura ses nouveaux fours. Vasseur, lui, déjeune désormais avec Carminati au Café du Commerce, « par hasard »."},
+        {"id": "couper", "titre": "Couper la poire en deux", "effets": [], "effets_proposes": "Relations −1 avec les deux. Aucun effet sur les indicateurs. Crédibilité − légère (« le maire ne tranche pas »).", "texte_resultat": "Chacun repart avec la moitié de ce qu'il voulait, et la conviction que l'autre a eu davantage."}
+      ]
+    },
+    {
+      "id": "local_carminati_presse",
+      "titre": "Carminati prend la plume",
+      "famille": "conditionnel",
+      "declencheur": {"fenetre": ["1980-10-01", "1982-08-31"], "conditions": [], "une_fois": false},
+      "_declencheur_propose": "Une fois par trimestre au plus, après un fait défavorable au maire (vote perdu, hausse d'impôts, cortège). Ébauche de TXT-106 : Carminati présent pendant tout le mandat. Si Yannick valide l'idée, les textes de presse pourront en donner plusieurs variantes.",
+      "contexte": "Dans L'Écho de la Vière, une tribune signée Jean-Louis Carminati : « Saint-Aubin mérite mieux qu'une mairie qui gouverne à la petite semaine. » Elle est reprise au marché, et votre secrétariat a reçu trois appels.",
+      "source": "Événement local fictif",
+      "source_lisible": "Événement local",
+      "_fictif": "Entièrement inventé.",
+      "delai_reponse_jours": 7,
+      "choix_defaut": "silence",
+      "fond": "à choisir",
+      "_image": "Une de journal local posée sur un bureau de mairie, à côté d'une tasse de café, lunettes, stylo. Le titre n'est pas lisible.",
+      "son": "effets/journal",
+      "choix": [
+        {"id": "repondre", "titre": "Répondre par une tribune", "effets": [], "effets_proposes": "Crédibilité + si le bilan sur le sujet est bon, − sinon. Relation chef_opposition −. Le débat devient public.", "texte_resultat": "Votre réponse paraît la semaine suivante, sur la même page. Les lecteurs comptent les points."},
+        {"id": "silence", "titre": "Ne pas répondre", "effets": [], "effets_proposes": "Aucun effet immédiat. Si trois tribunes restent sans réponse, Carminati gagne de l'influence pour la campagne.", "texte_resultat": "Vous laissez passer. Au marché, on dit que « le maire n'a rien à répondre »."},
+        {"id": "rencontrer", "titre": "Inviter Carminati à la mairie", "effets": [], "effets_proposes": "Relation chef_opposition + légère. Opposition modérée : relation +. Militants de la majorité : crédibilité − légère.", "texte_resultat": "Une heure de discussion courtoise et parfaitement inutile. Carminati en fait une deuxième tribune."}
+      ]
+    }
+  ]
+}
