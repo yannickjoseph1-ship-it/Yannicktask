@@ -231,6 +231,112 @@ Politics a déjà les trois :
 
 C'est une vraie avance. Le risque commun est le même que le leur : **viser trop gros**. Cela confirme le classement du § 6 : finir et rendre lisible l'existant avant d'ajouter des systèmes.
 
+## 11. Cinquième vidéo : les « 12 leçons de game design » (GDMK)
+
+Certaines leçons reprennent les vidéos précédentes : mécaniques cœur (§ 2), tutoriel (§ 7), signes et feedbacks (§ 4). Voici les nouvelles, appliquées à Politics.
+
+### 11.1 L'USP : ce que Politics fait et que personne d'autre ne fait
+
+**La règle :** pourquoi créer ce qui existe déjà ? Il faut un élément qui distingue le jeu.
+
+**Proposition pour Politics :** *« Le seul jeu où l'on gouverne une commune française de 1977 à 1983, et où la presse et l'adversaire vous interrogent sur ce que vous avez réellement fait pendant votre mandat. »*
+
+- Les jeux politiques existants (Suzerain, Democracy, Tropico, Crusader Kings) se jouent à l'échelle d'un pays ou d'une dynastie.
+- Le mécanisme des faits du mandat (`faits_mandat()`) est le vrai point unique : chaque promesse rompue, vote perdu ou emprunt devient une question de journaliste.
+
+**Conséquence :** c'est la partie à soigner et à mettre en avant en priorité, en cohérence avec les §§ 2 et 6.
+
+### 11.2 La singularité : un bout de la vie de Yannick dans le jeu
+
+**La règle :** la singularité, c'est ce que seul l'auteur peut mettre dans son jeu : quelque chose qu'il a vécu, comme un réalisateur ou un rappeur raconte son histoire.
+
+**Pour Politics :** c'est à Yannick de répondre, et la session cloud ne peut pas l'inventer. Quelques questions pour l'aider :
+- Pourquoi la politique municipale, et pourquoi ces années-là ?
+- Y a-t-il une commune, un maire, une campagne, un conseil municipal qu'il a connus ?
+- Une anecdote de famille ou de quartier qui pourrait devenir un événement du jeu ?
+
+La réponse pourrait nourrir Vière, un quartier, un personnage ou un événement.
+
+### 11.3 Le pitch : donner envie en une minute
+
+**La règle :** savoir présenter son jeu en quelques phrases, assez pour qu'on ait envie d'y jouer sans l'avoir vu.
+
+**Proposition**, à retravailler avec Yannick :
+
+> **5ème République — Les chemins du pouvoir.**
+> Mars 1977. Vous êtes élu maire de Vière, une ville moyenne de province. Six ans pour tenir vos promesses : faire voter vos projets par un conseil municipal qui ne vous obéit pas toujours, répondre aux lettres des habitants, tenir le budget, traverser les grèves et la victoire de la gauche en 1981.
+> Puis, en septembre 1982, tout change : vous ne gouvernez plus, vous rendez des comptes. Les journalistes ont tout noté. Votre adversaire aussi.
+> Le 13 mars 1983, Vière vote. Et vous saurez si vous méritiez de rester.
+
+**Version courte**, pour une page Steam ou une bande-annonce :
+> *« Gouvernez une ville française de 1977 à 1983. Puis rendez des comptes : la presse et votre adversaire se souviennent de tout. »*
+
+### 11.4 Prototyper sans coder
+
+**La règle :** tester une idée sur papier, ou dans Figma ou Canva, avant d'écrire du code. Cela permet de jeter les mauvaises idées à moindre coût.
+
+**Pour Politics :** c'est exactement la place de la session cloud. Avant que la session Godot ne code une proposition du document GSG ou de ce document, la session cloud peut en faire une maquette d'écran ou une partie « papier ». Par exemple :
+- la fiche de quartier ;
+- l'écran des trois horizons ;
+- le mode de carte « front électoral ».
+
+Yannick juge sur maquette, et seul ce qu'il valide passe au code.
+
+### 11.5 Les ennemis sont le fun
+
+**La règle :** ce qui rend un jeu amusant, c'est ce qu'on a en face. Les adversaires ne sont pas du contenu : ils sont le cœur du plaisir.
+
+**Les « ennemis » de Politics :**
+
+| Adversaire | Ce qu'il apporte au jeu | État |
+|---|---|---|
+| Jean-Louis Carminati | Le rival : il attaque sur le pire du bilan | Existe (débat) ; à présenter dès le début du mandat |
+| Les quatre journalistes | Le jugement : ils trouvent les failles | Existent |
+| Les élus qui lâchent la majorité | La trahison | Existent |
+| Le préfet, le conseil général | L'obstacle institutionnel | À développer |
+| Les crises (usine, grève, inondation) | L'imprévu | À écrire (§ 3.2 du document GSG) |
+
+**L'idée clé : Carminati doit être présent pendant tout le mandat, pas seulement au débat de février 1983.** Il commente dans la presse, s'oppose au conseil, récupère les mécontents. Un rival qu'on voit monter pendant 6 ans rend la victoire bien plus satisfaisante. Les fiches de personnalité du document GSG (§ 4) passent donc en priorité 2, avec les événements.
+
+### 11.6 La sauvegarde est une décision de game design
+
+**La règle :** quand, pourquoi et comment on sauvegarde dépend du public visé : hardcore, sans filet, ou détendu, en reprenant là où l'on était.
+
+**Pour Politics**, jeu de stratégie au tour par tour mensuel, joué en longues sessions, proposition :
+- **une sauvegarde automatique au début de chaque mois** et juste avant chaque séance du conseil ;
+- **la sauvegarde libre en mode normal** ;
+- **un mode « Préfet de fer »** (difficile, § 5) avec une seule sauvegarde qui s'écrase, à la manière du mode Ironman d'Europa Universalis : on assume ses votes ;
+- **une sauvegarde d'étape au 1er septembre 1982**, au début de la campagne, pour pouvoir rejouer seulement la campagne.
+
+À vérifier avec la session Godot : ce qui existe déjà.
+
+### 11.7 Le scope : sortir le strict minimum, puis développer
+
+**La règle :** l'auteur indépendant décide de l'ampleur du jeu. Mieux vaut sortir le minimum jouable, voir s'il plaît, puis développer.
+
+**Pour Politics :** le minimum jouable existe sans doute déjà : le mandat, la campagne et l'élection. La suite logique serait une **démo** limitée à la première année du mandat, plus la campagne en accéléré. On la ferait tester (§ 11.8), voire on la publierait (démo Steam, itch.io) avant toute nouvelle grande fonctionnalité. C'est une décision de Yannick.
+
+### 11.8 Le playtest : des testeurs précis, des questions précises
+
+**La règle :** « Joue à mon jeu, qu'est-ce que tu en penses ? » ne sert à rien. Il faut des testeurs choisis, des questions précises, et tester tout au long du projet.
+
+**Protocole proposé pour Politics**, que la session cloud peut mettre en forme dans un questionnaire :
+
+| Quoi tester | Qui | Questions précises |
+|---|---|---|
+| Le tutoriel | 3 personnes qui n'ont jamais vu le jeu | À quel moment avez-vous hésité sur quoi faire ? Pouvez-vous expliquer comment faire voter une mesure ? |
+| Le cœur (dossier, vote) | Joueurs de jeux de stratégie | Combien de dossiers avant de vous ennuyer ? Saviez-vous pourquoi un vote avait échoué ? |
+| La campagne | Les mêmes, en fin de mandat | Une question de journaliste vous a-t-elle paru injuste ? Avez-vous compris d'où venaient vos points perdus ? |
+| L'histoire de l'époque | Une personne qui a vécu 1977-1983 | Quelque chose sonne-t-il faux (vocabulaire, prix, institutions) ? |
+
+**À observer sans intervenir :** le temps passé avant la première hésitation, et les écrans où le joueur reste bloqué.
+
+### 11.9 La responsabilité des revenus
+
+**La règle :** si l'on veut vivre de son jeu, le game design est responsable des revenus. Cela passe par la rétention : le joueur a-t-il envie de revenir ?
+
+**Pour Politics :** la rétention d'un jeu de stratégie vient de la rejouabilité. On rejoue si les parties diffèrent : départs variés, événements aléatoires, personnalités des adversaires, modes de difficulté. Tout cela est déjà dans les priorités 2 et 3 du § 6. Le modèle « payer une fois sur PC » reste celui du genre : pas de publicités ni d'achats intégrés (§ 9).
+
 ---
 
 ## Ce que la session cloud livre ensuite
