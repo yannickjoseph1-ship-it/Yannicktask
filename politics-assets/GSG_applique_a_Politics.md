@@ -2,7 +2,7 @@
 
 *« 5ème République — Les chemins du pouvoir ». Document de la session cloud « Assets Politics jeu », 25 octobre 2026.*
 
-Ce document reprend les 5 piliers du guide de grande stratégie (Europa Universalis, Crusader Kings, Hearts of Iron) et les transpose à l'échelle du jeu : **une commune, Vière, de 1977 aux municipales de mars 1983**. Pour chaque pilier, il indique :
+Ce document reprend les 5 piliers du guide de grande stratégie (Europa Universalis, Crusader Kings, Hearts of Iron) et les transpose à l'échelle du jeu : **une commune fictive, Saint-Aubin-sur-Vière, et ses cinq quartiers, du 1er janvier 1980 au second tour des municipales, le 13 mars 1983**. La partie couvre la fin du mandat 1977-1983. Pour chaque pilier, il indique :
 - ce que le jeu fait déjà, d'après le README et les docs 14 et 15 de la session Godot ;
 - ce qui manque ;
 - les assets et les textes que la session cloud peut produire.
@@ -28,12 +28,12 @@ Le principe reste celui du guide : on ne joue pas les individus un par un, on g�
   - premier souci ;
   - vote en 1977 et intention de vote actuelle ;
   - niveau d'équipement : école, voirie, éclairage, transport.
-- **Des départs asymétriques.** Vière est aujourd'hui la seule commune jouable. Trois profils de départ changeraient l'expérience autant qu'un petit duché face à un empire :
+- **Des départs asymétriques.** Saint-Aubin-sur-Vière est aujourd'hui la seule commune jouable. Trois profils de départ changeraient l'expérience autant qu'un petit duché face à un empire :
 
 | Départ | Taille | Profil | Difficulté propre |
 |---|---|---|---|
-| Vière, ville moyenne | ~25 000 habitants | Mixte : cité HLM, bourg ancien, coteaux résidentiels | Équilibre, la commune actuelle |
-| Saint-Aubin-de-Vière, commune rurale | ~3 000 habitants | Agriculteurs, commerçants, notables | Peu de budget, tout se joue sur les relations personnelles ; sous le seuil de 3 500 habitants, le scrutin reste majoritaire avec panachage |
+| Saint-Aubin-sur-Vière, ville moyenne | ~25 000 habitants | Mixte : cité HLM, bourg ancien, coteaux résidentiels | Équilibre, la commune actuelle |
+| Le Mesnil-sur-Vière, commune rurale | ~3 000 habitants | Agriculteurs, commerçants, notables | Peu de budget, tout se joue sur les relations personnelles ; sous le seuil de 3 500 habitants, le scrutin reste majoritaire avec panachage |
 | Vière-les-Forges, ville ouvrière | ~40 000 habitants | Usine sidérurgique en crise, syndicats forts | Fermeture d'usine menaçante, fiscalité tendue, grèves |
 
 **Assets et textes possibles**
@@ -70,7 +70,7 @@ Le principe reste celui du guide : on ne joue pas les individus un par un, on g�
 
 Les équivalents des mécaniques du guide :
 
-| Mécanique du guide | Équivalent à Vière | État |
+| Mécanique du guide | Équivalent à Saint-Aubin | État |
 |---|---|---|
 | Alliances complexes | Accords de liste (union de la gauche, union RPR-UDF), fusion de listes entre les deux tours | À étendre au second tour |
 | Mariages royaux | Ralliements de notables : président du club de foot, curé, directeur d'usine, président de la FNSEA locale | À créer |
@@ -118,7 +118,7 @@ Le moteur de faits du mandat (`faits_mandat()`) relie déjà les décisions à l
 
 Ce sont des événements réels de la période, qui touchent une commune. La session cloud peut les écrire en entier : titre, texte, choix, effets proposés.
 
-| Date | Événement réel | Effet possible sur Vière |
+| Date | Événement réel | Effet possible sur Saint-Aubin |
 |---|---|---|
 | 10 mai 1981 | Élection de François Mitterrand | Les militants de gauche sont galvanisés, les notables inquiets |
 | 9 octobre 1981 | Abolition de la peine de mort | Débat au café du Bourg, rien d'officiel |

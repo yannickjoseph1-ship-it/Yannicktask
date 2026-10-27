@@ -84,8 +84,8 @@ C'est la liste la plus directement utile pour la partie assets : elle dit quels 
 
 **Pour Politics**
 - **Le mandat a déjà une courbe naturelle** :
-  - 1977-1978 : la lune de miel, une majorité docile, peu d'événements ;
-  - 1979-1981 : la crise, avec les premières grèves et le budget tendu ;
+  - 1980 : la prise en main. La partie commence le 1er janvier 1980, à mi-mandat, et la lune de miel de 1977 n'est pas jouable : la première année doit donc rester douce, avec une majorité encore stable et peu de crises ;
+  - 1980-1981 : la crise, avec les premières grèves et le budget tendu ;
   - 1981-1982 : l'accélération nationale (élection de Mitterrand, décentralisation) ;
   - septembre 1982 à mars 1983 : la campagne, où l'on rend des comptes.
 
@@ -167,7 +167,7 @@ Chaque décision d'équipe se vérifie contre eux.
 
 | Pilier | Proposition |
 |---|---|
-| **Univers et contexte** | Une commune française fictive, Vière, de 1977 aux municipales de mars 1983, dans une histoire nationale réelle et exacte (alternance de 1981, décentralisation, radios libres) |
+| **Univers et contexte** | Une commune française fictive, Saint-Aubin-sur-Vière, de janvier 1980 aux municipales de mars 1983 (fin du mandat 1977-1983), dans une histoire nationale réelle et exacte (alternance de 1981, décentralisation, radios libres) |
 | **Symbolique** | Le pouvoir local au contact des gens : un maire connaît ses électeurs par leur nom et finit toujours par rendre des comptes |
 | **Expérience du joueur** | La tension d'un vote serré et d'une question piège, dans un jeu de stratégie lisible : chaque chiffre s'explique et chaque défaite se comprend |
 
@@ -239,7 +239,7 @@ Certaines leçons reprennent les vidéos précédentes : mécaniques cœur (§ 2
 
 **La règle :** pourquoi créer ce qui existe déjà ? Il faut un élément qui distingue le jeu.
 
-**Proposition pour Politics :** *« Le seul jeu où l'on gouverne une commune française de 1977 à 1983, et où la presse et l'adversaire vous interrogent sur ce que vous avez réellement fait pendant votre mandat. »*
+**Proposition pour Politics :** *« Le seul jeu où l'on gouverne une commune française de 1980 à 1983, et où la presse et l'adversaire vous interrogent sur ce que vous avez réellement fait pendant votre mandat. »*
 
 - Les jeux politiques existants (Suzerain, Democracy, Tropico, Crusader Kings) se jouent à l'échelle d'un pays ou d'une dynastie.
 - Le mécanisme des faits du mandat (`faits_mandat()`) est le vrai point unique : chaque promesse rompue, vote perdu ou emprunt devient une question de journaliste.
@@ -255,7 +255,7 @@ Certaines leçons reprennent les vidéos précédentes : mécaniques cœur (§ 2
 - Y a-t-il une commune, un maire, une campagne, un conseil municipal qu'il a connus ?
 - Une anecdote de famille ou de quartier qui pourrait devenir un événement du jeu ?
 
-La réponse pourrait nourrir Vière, un quartier, un personnage ou un événement.
+La réponse pourrait nourrir Saint-Aubin-sur-Vière, un quartier, un personnage ou un événement.
 
 ### 11.3 Le pitch : donner envie en une minute
 
@@ -264,12 +264,12 @@ La réponse pourrait nourrir Vière, un quartier, un personnage ou un événemen
 **Proposition**, à retravailler avec Yannick :
 
 > **5ème République — Les chemins du pouvoir.**
-> Mars 1977. Vous êtes élu maire de Vière, une ville moyenne de province. Six ans pour tenir vos promesses : faire voter vos projets par un conseil municipal qui ne vous obéit pas toujours, répondre aux lettres des habitants, tenir le budget, traverser les grèves et la victoire de la gauche en 1981.
+> Janvier 1980. Vous êtes maire de Saint-Aubin-sur-Vière, une ville moyenne de province, depuis 1977. Trois ans pour tenir vos promesses avant de retourner devant les électeurs : faire voter vos projets par un conseil municipal qui ne vous obéit pas toujours, répondre aux lettres des habitants, tenir le budget, traverser les grèves et la victoire de la gauche en 1981.
 > Puis, en septembre 1982, tout change : vous ne gouvernez plus, vous rendez des comptes. Les journalistes ont tout noté. Votre adversaire aussi.
-> Le 13 mars 1983, Vière vote. Et vous saurez si vous méritiez de rester.
+> Le 13 mars 1983, Saint-Aubin vote. Et vous saurez si vous méritiez de rester.
 
 **Version courte**, pour une page Steam ou une bande-annonce :
-> *« Gouvernez une ville française de 1977 à 1983. Puis rendez des comptes : la presse et votre adversaire se souviennent de tout. »*
+> *« Gouvernez une ville française de 1980 à 1983. Puis rendez des comptes : la presse et votre adversaire se souviennent de tout. »*
 
 ### 11.4 Prototyper sans coder
 
@@ -314,7 +314,7 @@ Yannick juge sur maquette, et seul ce qu'il valide passe au code.
 
 **La règle :** l'auteur indépendant décide de l'ampleur du jeu. Mieux vaut sortir le minimum jouable, voir s'il plaît, puis développer.
 
-**Pour Politics :** le minimum jouable existe sans doute déjà : le mandat, la campagne et l'élection. La suite logique serait une **démo** limitée à la première année du mandat, plus la campagne en accéléré. On la ferait tester (§ 11.8), voire on la publierait (démo Steam, itch.io) avant toute nouvelle grande fonctionnalité. C'est une décision de Yannick.
+**Pour Politics :** le minimum jouable existe sans doute déjà : le mandat, la campagne et l'élection. La suite logique serait une **démo** limitée à l'année 1980, plus la campagne en accéléré. On la ferait tester (§ 11.8), voire on la publierait (démo Steam, itch.io) avant toute nouvelle grande fonctionnalité. C'est une décision de Yannick.
 
 ### 11.8 Le playtest : des testeurs précis, des questions précises
 
@@ -327,7 +327,7 @@ Yannick juge sur maquette, et seul ce qu'il valide passe au code.
 | Le tutoriel | 3 personnes qui n'ont jamais vu le jeu | À quel moment avez-vous hésité sur quoi faire ? Pouvez-vous expliquer comment faire voter une mesure ? |
 | Le cœur (dossier, vote) | Joueurs de jeux de stratégie | Combien de dossiers avant de vous ennuyer ? Saviez-vous pourquoi un vote avait échoué ? |
 | La campagne | Les mêmes, en fin de mandat | Une question de journaliste vous a-t-elle paru injuste ? Avez-vous compris d'où venaient vos points perdus ? |
-| L'histoire de l'époque | Une personne qui a vécu 1977-1983 | Quelque chose sonne-t-il faux (vocabulaire, prix, institutions) ? |
+| L'histoire de l'époque | Une personne qui a vécu 1980-1983 | Quelque chose sonne-t-il faux (vocabulaire, prix, institutions) ? |
 
 **À observer sans intervenir :** le temps passé avant la première hésitation, et les écrans où le joueur reste bloqué.
 
