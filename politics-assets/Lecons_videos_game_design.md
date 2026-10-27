@@ -150,6 +150,87 @@ Classement proposé des idées du document GSG :
 **Ce qui ne s'applique pas**
 - Faire perdre le joueur exprès pour vendre des bonus ou montrer des publicités, les publicités forcées, le bouton « no ads ». C'est le modèle économique du jeu mobile gratuit, et la vidéo elle-même montre qu'il a mal marché. Pour un jeu de stratégie sur PC, la défaite doit être juste et compréhensible (§ 4 et 5), jamais un levier de vente.
 
+## 10. Quatrième vidéo : « Racine », un jeu de gestion en 4 mois
+
+C'est un projet d'étudiants : 10 personnes, 4 mois, un jeu de gestion de colonie sur PC. Leurs leçons, appliquées à Politics :
+
+### 10.1 Les game pillars : trois idées directrices à fixer par écrit
+
+Racine en a trois :
+- l'univers et le contexte ;
+- la symbolique, puisée dans une expérience réelle (pour eux, la fraternité entre potes) ;
+- l'expérience voulue pour le joueur : drôle, avec une faible charge mentale mais de la profondeur.
+
+Chaque décision d'équipe se vérifie contre eux.
+
+**Proposition pour Politics**, à valider par Yannick :
+
+| Pilier | Proposition |
+|---|---|
+| **Univers et contexte** | Une commune française fictive, Vière, de 1977 aux municipales de mars 1983, dans une histoire nationale réelle et exacte (alternance de 1981, décentralisation, radios libres) |
+| **Symbolique** | Le pouvoir local au contact des gens : un maire connaît ses électeurs par leur nom et finit toujours par rendre des comptes |
+| **Expérience du joueur** | La tension d'un vote serré et d'une question piège, dans un jeu de stratégie lisible : chaque chiffre s'explique et chaque défaite se comprend |
+
+**Test pour toute nouvelle idée :** sert-elle au moins un pilier ? Sinon, elle sort (voir § 6).
+
+### 10.2 Une seule référence, pas plusieurs
+
+Leur intervenant leur a fait refaire un mois et demi d'interfaces : « Une seule référence, tu prendras. » Repartir de RimWorld seul a été bien plus efficace.
+
+**Pour Politics :** Crusader Kings 3 sert déjà de modèle pour le conseil et les délégations. **CK3 devrait rester la référence unique pour l'interface** : fiches de personnage, infobulles imbriquées, modes de carte, alertes en haut de l'écran. Les autres jeux (Europa Universalis, Suzerain…) peuvent inspirer le ton des textes, pas l'interface.
+
+### 10.3 Le narrative design au service du jeu
+
+Dans Racine, l'humeur de l'arbre de vie *est* la barre de progression : il gagne des feuilles et des animations joyeuses à chaque niveau. Les ressources (sève, eau) collent à l'univers plutôt qu'au bois et au fer habituels.
+
+**Pour Politics**, un équivalent visible de l'état de la commune :
+- **La place de la mairie, en fond du bureau ou de la carte, qui change avec l'opinion :**
+  - commune contente : fleurs aux fenêtres, marché animé, drapeaux ;
+  - commune mécontente : affiches d'opposition, tags « Carminati maire », volets fermés, banderoles de grève.
+
+  Trois ou quatre états suffisent, et c'est un vrai besoin d'assets (images Higgsfield, déclinées).
+- **Le bureau du maire, qui se remplit au fil du mandat :** dossiers empilés, coupures de presse encadrées pour les succès, lettres en souffrance qui s'entassent pour les doléances non traitées.
+- **Les noms des ressources,** dans le vocabulaire municipal de l'époque :
+  - caisse ;
+  - « crédit » auprès des élus ;
+  - temps du maire ;
+  - confiance des quartiers.
+
+### 10.4 Les besoins, l'humeur et les événements
+
+Leurs habitants ont des besoins (boire, dormir, s'amuser) qui font monter ou baisser leur humeur. Ils ont aussi des humeurs aléatoires (deux habitants qui se brouillent) qui créent de la tension. Un habitant malheureux trop longtemps s'en va.
+
+**Pour Politics**, c'est déjà proche des doléances et des élus :
+- **un quartier sans réponse trop longtemps bascule dans l'opposition** : le parallèle direct ;
+- **les brouilles entre élus** (deux adjoints qui se fâchent) sont des événements aléatoires utiles à écrire.
+
+### 10.5 La direction artistique et le son
+
+**Ce que Racine a fait**
+- Une bible graphique : les règles visuelles à suivre pour rester cohérent.
+- Des icônes pour chaque ressource et chaque menu.
+- Des contours au survol de chaque élément cliquable.
+- Une musique avec une contrainte d'instruments (flûte, xylophone, harpe) et un **instrument signature** dans chaque morceau (une trompette jouée à la bouche).
+- De petits détails de vie : poissons, oiseaux.
+
+**Pour Politics**
+- **La bible graphique :** à écrire avec la session Godot, qui connaît le style actuel des portraits et des décors. Elle fixera la palette des années 80, les polices, le cadre des portraits, le style des icônes et le grain télé. La session cloud peut en rédiger le brouillon à partir de captures d'écran.
+- **Le brief musical,** proposé :
+  - instruments de l'époque : synthétiseur analogique façon générique de journal télévisé, piano électrique, basse ;
+  - **instrument signature : les cuivres d'une fanfare municipale,** présents dans chaque morceau, de la mairie à la campagne. Ils sonnent « fête de la commune » quand tout va bien, et « défilé de grève » en mineur quand ça va mal.
+- **Les détails de vie sur la carte :** une 2CV ou une R5 qui passe, le marché le jeudi, le clocher qui sonne l'heure.
+
+### 10.6 Ce que Politics a d'avance, et le risque partagé
+
+Racine a manqué de temps pour trois choses : la sauvegarde, l'équilibrage et le tutoriel. Leurs testeurs avaient l'impression de jouer « à Civilization 6 en braille ».
+
+Politics a déjà les trois :
+- des sauvegardes, avec avertissement de version ;
+- un simulateur d'équilibrage et 250 tests ;
+- un tutoriel de 24 étapes.
+
+C'est une vraie avance. Le risque commun est le même que le leur : **viser trop gros**. Cela confirme le classement du § 6 : finir et rendre lisible l'existant avant d'ajouter des systèmes.
+
 ---
 
 ## Ce que la session cloud livre ensuite
