@@ -1,15 +1,15 @@
 {
-  "name": "anim",
+  "name": "cybertip-anim",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "render": "node render-local.mjs",
+    "apercu": "node render-local.mjs --preview"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "three": "^0.170.0"
-  }
+    "ffmpeg-static": "^5.2.0",
+    "playwright": "1.56.1",
+    "three": "0.170.0"
+  },
+  "type": "module",
+  "private": true
 }
