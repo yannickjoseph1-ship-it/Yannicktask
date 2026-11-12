@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Cybertip – Frigos piratés</title>
+<style>
+  :root { --y:#FFD43B; --g:#2BD45B; --bg:#0b0b0b; }
+  html,body { margin:0; padding:0; background:var(--bg); width:1080px; height:1920px; overflow:hidden; font-family:Inter, sans-serif; }
+  #c { position:absolute; inset:0; width:1080px; height:1920px; display:block; }
+  #ov { position:absolute; inset:0; pointer-events:none; }
+  #vig { position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 50% 48%, transparent 55%, rgba(0,0,0,.55) 100%); }
+  #prog { position:absolute; top:150px; left:60px; right:60px; display:flex; gap:10px; }
+  #prog i { flex:1; height:7px; border-radius:4px; background:rgba(255,255,255,.18); overflow:hidden; position:relative; }
+  #prog i b { position:absolute; inset:0; background:var(--y); transform-origin:left; }
+  #hdr { position:absolute; top:190px; left:60px; right:60px; display:flex; align-items:center; gap:22px; }
+  #hdr img { width:84px; height:84px; border-radius:50%; box-shadow:0 0 0 3px rgba(255,212,59,.35); }
+  #hdr .brand { color:#fff; font-weight:800; font-size:40px; letter-spacing:-.01em; line-height:1; }
+  #kick { color:var(--y); font-weight:800; font-size:30px; letter-spacing:.2em; margin-top:10px; line-height:1; }
+  #title { position:absolute; top:330px; left:60px; right:60px; color:#fff; font-weight:900; font-size:104px; line-height:1.02; letter-spacing:-.03em; }
+  #title .l2 { color:var(--y); display:block; }
+  #stats { position:absolute; top:320px; left:60px; right:60px; color:#fff; background:rgba(11,11,11,.84); border-radius:32px; padding:26px 30px 10px; box-sizing:border-box; }
+  #stats:empty { display:none; }
+  #stats .row { display:flex; align-items:baseline; gap:24px; margin-bottom:18px; }
+  #stats .n { font-weight:900; font-size:96px; letter-spacing:-.03em; color:var(--y); min-width:300px; text-align:right; line-height:1; }
+  #stats .n.red { color:#ff4b3e; }
+  #stats .n.org { color:#ff9f1c; }
+  #stats .t { font-weight:800; font-size:44px; line-height:1.1; }
+  #pill { position:absolute; top:330px; left:60px; right:60px; display:flex; justify-content:center; }
+  #pill span { background:rgba(43,212,91,.14); border:3px solid var(--g); color:#fff; font-weight:800; font-size:40px; padding:18px 30px; border-radius:60px; }
+  #bubble { position:absolute; left:60px; right:60px; top:1395px; display:flex; }
+  #bubble .b { position:relative; font-weight:800; font-size:52px; line-height:1.2; padding:30px 40px; border-radius:36px; max-width:830px; letter-spacing:-.01em; }
+  #bubble .b.J { background:var(--y); color:#111; }
+  #bubble .b.N { background:#121212; color:#fff; border:4px solid var(--g); }
+  #bubble .b em { font-style:normal; color:var(--y); }
+  #bubble .b.J em { color:#111; text-decoration:underline; text-decoration-thickness:5px; text-underline-offset:6px; }
+  #bubble .tail { position:absolute; top:-22px; width:44px; height:44px; transform:rotate(45deg); border-radius:6px; }
+  #bubble .b.J .tail { background:var(--y); }
+  #bubble .b.N .tail { background:#121212; border-left:4px solid var(--g); border-top:4px solid var(--g); }
+  #cta { position:absolute; top:330px; left:60px; right:60px; color:#fff; }
+  #cta h1 { margin:0 0 60px; font-weight:900; font-size:112px; line-height:1.0; letter-spacing:-.035em; }
+  #cta h1 span { color:var(--y); }
+  #cta .r { display:flex; align-items:center; gap:30px; margin-bottom:40px; font-size:46px; font-weight:600; line-height:1.15; max-width:640px; }
+  #cta .r svg { flex:none; width:64px; height:64px; }
+  #cta .r b { color:var(--y); font-weight:800; }
+  #sub { position:absolute; left:60px; top:1180px; display:flex; align-items:center; gap:26px; background:#151515; border:3px solid rgba(255,212,59,.6); border-radius:80px; padding:18px 40px 18px 18px; }
+  #sub img { width:110px; height:110px; border-radius:50%; }
+  #sub .s1 { color:#fff; font-weight:800; font-size:44px; line-height:1.1; }
+  #sub .s2 { color:var(--y); font-weight:800; font-size:36px; letter-spacing:.06em; }
+  #fade { position:absolute; inset:0; background:#000; opacity:0; }
+  .hide { display:none !important; }
+</style>
+<script type="importmap">
+{ "imports": { "three": "./node_modules/three/build/three.module.js", "three/addons/": "./node_modules/three/examples/jsm/" } }
+</script>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<div id="ov">
+  <div id="vig"></div>
+  <div id="prog"></div>
+  <div id="hdr"><img src="logo.png" alt=""><div><div class="brand">Cybertip</div><div id="kick"></div></div></div>
+  <div id="title"></div>
+  <div id="stats"></div>
+  <div id="pill"></div>
+  <div id="bubble"></div>
+  <div id="cta"></div>
+  <div id="sub"><img src="logo.png" alt=""><div><div class="s1">Abonne-toi à Cybertip</div><div class="s2">LA CYBER, SIMPLEMENT</div></div></div>
+  <div id="fade"></div>
+</div>
+<script type="module" src="scene.js"></script>
+</body>
+</html>
