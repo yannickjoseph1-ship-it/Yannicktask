@@ -1,0 +1,107 @@
+[
+ {
+  "clip": "noir_01",
+  "start": 0.4,
+  "end": 7.19
+ },
+ {
+  "clip": "jaune_02",
+  "start": 7.99,
+  "end": 11.88
+ },
+ {
+  "clip": "jaune_03",
+  "start": 12.23,
+  "end": 14.66
+ },
+ {
+  "clip": "noir_04",
+  "start": 15.46,
+  "end": 18.02
+ },
+ {
+  "clip": "jaune_05",
+  "start": 18.37,
+  "end": 20.44
+ },
+ {
+  "clip": "noir_06",
+  "start": 20.79,
+  "end": 25.18
+ },
+ {
+  "clip": "jaune_07",
+  "start": 25.98,
+  "end": 27.73
+ },
+ {
+  "clip": "noir_08",
+  "start": 28.08,
+  "end": 31.84
+ },
+ {
+  "clip": "noir_09",
+  "start": 32.19,
+  "end": 35.22
+ },
+ {
+  "clip": "jaune_10",
+  "start": 36.02,
+  "end": 37.22
+ },
+ {
+  "clip": "noir_11",
+  "start": 37.57,
+  "end": 43.92
+ },
+ {
+  "clip": "noir_12",
+  "start": 44.27,
+  "end": 48.86
+ },
+ {
+  "clip": "jaune_13",
+  "start": 49.66,
+  "end": 51.13
+ },
+ {
+  "clip": "noir_14",
+  "start": 51.48,
+  "end": 57.15
+ },
+ {
+  "clip": "noir_15",
+  "start": 57.5,
+  "end": 62.72
+ },
+ {
+  "clip": "jaune_16",
+  "start": 63.52,
+  "end": 65.69
+ },
+ {
+  "clip": "noir_17",
+  "start": 66.04,
+  "end": 70.9
+ },
+ {
+  "clip": "noir_18",
+  "start": 71.25,
+  "end": 78.12
+ },
+ {
+  "clip": "jaune_19",
+  "start": 78.92,
+  "end": 81.69
+ },
+ {
+  "clip": "noir_20",
+  "start": 82.04,
+  "end": 84.18
+ },
+ {
+  "clip": "jaune_21",
+  "start": 84.98,
+  "end": 98.2
+ }
+]
