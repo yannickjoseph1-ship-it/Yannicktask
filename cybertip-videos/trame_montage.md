@@ -8,7 +8,7 @@ Sur la slide 9, remplacer « Enregistre ce post » par « Enregistre cette vidé
 
 ## Vidéo 1 – Les frigos piratés
 
-**Slide 1 – Couverture (HOOK, voix off ou Noir)**
+**Slide 1 – Couverture (HOOK – NOIR)**
 Des centaines de supermarchés ont vu leurs frigos chauffer à cinquante degrés. Pas une panne… un piratage.
 
 **Slide 2 – Lundi, 7 h**
@@ -44,7 +44,7 @@ Des centaines de supermarchés ont vu leurs frigos chauffer à cinquante degrés
 - JAUNE : Merci ! J'appelle tout de suite le frigoriste.
 - NOIR : Et pense à changer ce mot de passe !
 
-**Slide 9 – CTA (voix off ou Jaune)**
+**Slide 9 – CTA (JAUNE)**
 Et toi, tes objets connectés sont protégés ? Réponds en commentaire : oui, non, ou dis-m'en plus. Enregistre cette vidéo pour ne pas l'oublier, envoie-la à quelqu'un qui a un frigo connecté… et abonne-toi à Cybertip !
 
 À vérifier avant publication : chiffres (300 / 80 / 80 / 3 sites EFS).
@@ -53,7 +53,7 @@ Et toi, tes objets connectés sont protégés ? Réponds en commentaire : oui, n
 
 ## Vidéo 2 – NIS 2 / la fausse facture
 
-**Slide 1 – Couverture (HOOK)**
+**Slide 1 – Couverture (HOOK – NOIR)**
 Un clic sur une fausse facture… et toute ton entreprise est à l'arrêt. Voilà ce qui t'attend ensuite.
 
 **Slide 2 – Lundi, 8 h**
@@ -88,7 +88,7 @@ Un clic sur une fausse facture… et toute ton entreprise est à l'arrêt. Voil�
 - JAUNE : Merci, je sais enfin par où commencer.
 - NOIR : Avec plaisir. La prochaine fois, tu seras prêt.
 
-**Slide 9 – CTA**
+**Slide 9 – CTA (JAUNE)**
 Et toi, ton entreprise est prête pour NIS 2 ? Réponds en commentaire : oui, non, ou dis-m'en plus. Enregistre cette vidéo, envoie-la à ton dirigeant ou à ton responsable informatique… et abonne-toi à Cybertip !
 
 À vérifier avant publication : statut de la loi française de transposition ; plafond 10 M€ / 2 % = entités essentielles (7 M€ / 1,4 % pour les entités importantes).
